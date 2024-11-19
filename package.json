@@ -1,5 +1,5 @@
 {
-  "name": "ShopEase",
+  "name": "shopease",
   "version": "1.0.0",
   "description": "Full Stack SHOP EASE Ecommerce",
   "main": "backend/server.js",
