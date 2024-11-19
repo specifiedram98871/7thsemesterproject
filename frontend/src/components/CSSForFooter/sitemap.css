@@ -1,0 +1,44 @@
+.sitemap-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .description {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .sitemap-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sitemap-list li {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .sitemap-list li a {
+    font-size: 1.2rem;
+    color: #27ae60;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .sitemap-list li a:hover {
+    color: #2ecc71;
+  }
+  

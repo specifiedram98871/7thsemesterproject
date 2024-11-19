@@ -1,0 +1,65 @@
+.payments-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .payments-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .payments-header h1 {
+    font-size: 2em;
+    color: #1c85e8;
+  }
+  
+  .payments-header p {
+    font-size: 1.2em;
+    color: #555;
+  }
+  
+  .payments-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .payments-form label {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+  }
+  
+  .payments-form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  .date-cvv {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .date-cvv div {
+    flex: 1;
+  }
+  
+  .submit-btn {
+    background-color: #1c85e8;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #1369b2;
+  }
+  

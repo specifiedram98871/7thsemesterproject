@@ -1,0 +1,38 @@
+/* Custom scrollbar styling for the sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 8px; /* Increase the width for better usability */
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background-color: #111827; /* Darker gray for the track (Tailwind's gray-900) */
+    border-radius: 10px; /* Add rounded corners */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #6b7280; /* Lighter gray for the thumb (Tailwind's gray-500) */
+    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+    border: 2px solid #1f2937; /* Add padding between the track and thumb */
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: #9ca3af; /* Slightly lighter gray on hover (Tailwind's gray-400) */
+}
+/* Initially hide the sidebar and slide it in on hover */
+.sidebar-container {
+    position: fixed;
+    top: 0;
+    left: -240px; /* Hidden off-screen */
+    height: 100vh;
+    width: 240px; /* Adjust the width as needed */
+    transition: left 0.45s ease; /* Smooth slide-in animation */
+}
+
+.sidebar-container:hover {
+    left: 0; /* Slide in on hover */
+}
+
+/* Ensure the sidebar doesn't disappear when hovered over itself */
+.sidebar-container:hover .sidebar {
+    left: 0;
+    transition: left 0.45s ease;
+}
