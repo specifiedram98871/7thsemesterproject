@@ -17,7 +17,7 @@ ReactDOM.render(
           horizontal: 'center',
         }}
       >
-        <Router>
+        <Router future={{v7_relativeSplatPath:true}} >
           <App />
         </Router>
       </SnackbarProvider>
