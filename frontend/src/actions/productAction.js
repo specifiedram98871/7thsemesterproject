@@ -40,9 +40,9 @@ export const getProducts =
     try {
       dispatch({ type: ALL_PRODUCTS_REQUEST });
 
-      let url = `${process.env.BACK_URL}/api/v1/products?keyword=${keyword}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&page=${currentPage}`;
+      let url = `/api/v1/products?keyword=${keyword}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&page=${currentPage}`;
       if (category) {
-        url = `${process.env.BACK_URL}/api/v1/products?keyword=${keyword}&category=${category}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&page=${currentPage}`;
+        url = `/api/v1/products?keyword=${keyword}&category=${category}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&page=${currentPage}`;
       }
       const { data } = await axios.get(url);
 
@@ -64,7 +64,7 @@ export const getSimilarProducts = (category) => async (dispatch) => {
     dispatch({ type: ALL_PRODUCTS_REQUEST });
 
     const { data } = await axios.get(
-      `${process.env.BACK_URL}/api/v1/products?category=${category}`
+      `/api/v1/products?category=${category}`
     );
 
     dispatch({
@@ -84,9 +84,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const { data } = await axios.get(
-      `${process.env.BACK_URL}/api/v1/product/${id}`
-    );
+    const { data } = await axios.get(`/api/v1/product/${id}`);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
@@ -106,7 +104,7 @@ export const newReview = (reviewData) => async (dispatch) => {
     dispatch({ type: NEW_REVIEW_REQUEST });
     const config = { header: { "Content-Type": "application/json" } };
     const { data } = await axios.put(
-      `${process.env.BACK_URL}/api/v1/review`,
+      "/api/v1/review",
       reviewData,
       config
     );
@@ -129,7 +127,7 @@ export const getSliderProducts = () => async (dispatch) => {
     dispatch({ type: SLIDER_PRODUCTS_REQUEST });
 
     const { data } = await axios.get(
-      `${process.env.BACK_URL}/api/v1/products/all`
+      "https://7thsemesterproject-4b3b.vercel.app/api/v1/products/all"
     );
 
     dispatch({
@@ -149,9 +147,7 @@ export const getAdminProducts = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_PRODUCTS_REQUEST });
 
-    const { data } = await axios.get(
-      `${process.env.BACK_URL}/api/v1/admin/products`
-    );
+    const { data } = await axios.get("/api/v1/admin/products");
 
     dispatch({
       type: ADMIN_PRODUCTS_SUCCESS,
@@ -171,7 +167,7 @@ export const createProduct = (productData) => async (dispatch) => {
     dispatch({ type: NEW_PRODUCT_REQUEST });
     const config = { header: { "Content-Type": "application/json" } };
     const { data } = await axios.post(
-      `${process.env.BACK_URL}/api/v1/admin/product/new`,
+      "/api/v1/admin/product/new",
       productData,
       config
     );
@@ -194,7 +190,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
     dispatch({ type: UPDATE_PRODUCT_REQUEST });
     const config = { header: { "Content-Type": "application/json" } };
     const { data } = await axios.put(
-      `${process.env.BACK_URL}/api/v1/admin/product/${id}`,
+      `/api/v1/admin/product/${id}`,
       productData,
       config
     );
@@ -216,7 +212,7 @@ export const deleteProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_PRODUCT_REQUEST });
     const { data } = await axios.delete(
-      `${process.env.BACK_URL}/api/v1/admin/product/${id}`
+      `/api/v1/admin/product/${id}`
     );
 
     dispatch({
@@ -236,7 +232,7 @@ export const getAllReviews = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_REVIEWS_REQUEST });
     const { data } = await axios.get(
-      `${process.env.BACK_URL}/api/v1/admin/reviews?id=${id}`
+      `/api/v1/admin/reviews?id=${id}`
     );
 
     dispatch({
@@ -256,7 +252,7 @@ export const deleteReview = (reviewId, productId) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_REVIEW_REQUEST });
     const { data } = await axios.delete(
-      `${process.env.BACK_URL}/api/v1/admin/reviews?id=${reviewId}&productId=${productId}`
+      `/api/v1/admin/reviews?id=${reviewId}&productId=${productId}`
     );
 
     dispatch({
