@@ -7,14 +7,14 @@ const errorMiddleware = require("./middlewares/error");
 const cors = require("cors");
 
 const app = express();
-
+require('dotenv').config();
 // config
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: "backend/config/config.env" });
 }
 app.use(
   cors({
-    origin: "https://7thsemesterproject.vercel.app",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
