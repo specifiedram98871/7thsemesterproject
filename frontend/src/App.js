@@ -56,7 +56,6 @@ function App() {
 
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-
   useEffect(() => {
     WebFont.load({
       google: {

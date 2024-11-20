@@ -50,7 +50,7 @@ const Payment = () => {
         },
       };
       const { data } = await axios.post(
-        `{BACK_URL}/api/v1/payment/process`,
+        `${process.env.REACT_APP_BACK_URL}/api/v1/payment/process`,
         paymentData,
         config
       );
