@@ -51,7 +51,7 @@ export const loginUser = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "${BACK_URL}/api/v1/login",
+      `${process.env.BACK_URL}/api/v1/login`,
       { email, password },
       config
     );
@@ -80,7 +80,7 @@ export const registerUser = (userData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "${BACK_URL}/api/v1/register",
+      `${process.env.BACK_URL}/api/v1/register`,
       userData,
       config
     );
@@ -102,7 +102,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data } = await axios.get("${BACK_URL}/api/v1/me");
+    const { data } = await axios.get(`${process.env.BACK_URL}/api/v1/me`);
 
     dispatch({
       type: LOAD_USER_SUCCESS,
@@ -119,7 +119,7 @@ export const loadUser = () => async (dispatch) => {
 // Logout User
 export const logoutUser = () => async (dispatch) => {
   try {
-    await axios.get("${BACK_URL}/api/v1/logout");
+    await axios.get(`${process.env.BACK_URL}/api/v1/logout`);
     localStorage.removeItem("searches");
     localStorage.removeItem("categories");
     dispatch({ type: LOGOUT_USER_SUCCESS });
@@ -143,7 +143,7 @@ export const updateProfile = (userData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      "${BACK_URL}/api/v1/me/update",
+      `${process.env.BACK_URL}/api/v1/me/update`,
       userData,
       config
     );
@@ -172,7 +172,7 @@ export const updatePassword = (passwords) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      "${BACK_URL}/api/v1/password/update",
+      `${process.env.BACK_URL}/api/v1/password/update`,
       passwords,
       config
     );
@@ -201,7 +201,7 @@ export const forgotPassword = (email) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "${BACK_URL}/api/v1/password/forgot",
+      `${process.env.BACK_URL}/api/v1/password/forgot`,
       email,
       config
     );
@@ -230,7 +230,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `${BACK_URL}/api/v1/password/reset/${token}`,
+      `${process.env.BACK_URL}/api/v1/password/reset/${token}`,
       passwords,
       config
     );
@@ -251,7 +251,9 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 export const getAllUsers = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_USERS_REQUEST });
-    const { data } = await axios.get("${BACK_URL}/api/v1/admin/users");
+    const { data } = await axios.get(
+      `${process.env.BACK_URL}/api/v1/admin/users`
+    );
     dispatch({
       type: ALL_USERS_SUCCESS,
       payload: data.users,
@@ -268,7 +270,9 @@ export const getAllUsers = () => async (dispatch) => {
 export const getUserDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: USER_DETAILS_REQUEST });
-    const { data } = await axios.get(`${BACK_URL}/api/v1/admin/user/${id}`);
+    const { data } = await axios.get(
+      `${process.env.BACK_URL}/api/v1/admin/user/${id}`
+    );
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -294,7 +298,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `${BACK_URL}/api/v1/admin/user/${id}`,
+      `${process.env.BACK_URL}/api/v1/admin/user/${id}`,
       userData,
       config
     );
@@ -315,7 +319,9 @@ export const updateUser = (id, userData) => async (dispatch) => {
 export const deleteUser = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_USER_REQUEST });
-    const { data } = await axios.delete(`${BACK_URL}/api/v1/admin/user/${id}`);
+    const { data } = await axios.delete(
+      `${process.env.BACK_URL}/api/v1/admin/user/${id}`
+    );
 
     dispatch({
       type: DELETE_USER_SUCCESS,

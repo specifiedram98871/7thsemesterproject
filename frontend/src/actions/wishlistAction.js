@@ -6,7 +6,9 @@ import {
 
 // Add To Wishlist
 export const addToWishlist = (id) => async (dispatch, getState) => {
-  const { data } = await axios.get(`${BACK_URL}/api/v1/product/${id}`);
+  const { data } = await axios.get(
+    `${process.env.BACK_URL}/api/v1/product/${id}`
+  );
 
   dispatch({
     type: ADD_TO_WISHLIST,

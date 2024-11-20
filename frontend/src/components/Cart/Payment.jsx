@@ -33,7 +33,7 @@ const Payment = () => {
   //test data
 
   // const paymentData = {
-  //   return_url: "http://localhost:4000/api/v1/payment/complete",
+  //   return_url: "http://localhost:4000{BACK_URL}/api/v1/payment/complete",
   //   itemId: "12",
   //   totalPrice: 10,
   //   name: "test",
@@ -50,7 +50,7 @@ const Payment = () => {
         },
       };
       const { data } = await axios.post(
-        "/api/v1/payment/process",
+        `{BACK_URL}/api/v1/payment/process`,
         paymentData,
         config
       );
