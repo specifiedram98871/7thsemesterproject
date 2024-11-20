@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 app.use(
   cors({
-    origin: "https://7thsemesterproject.vercel.app",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
