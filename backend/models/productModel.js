@@ -16,18 +16,6 @@ const productSchema = new mongoose.Schema({
             required: true
         }
     ],
-    specifications: [
-        {
-            title: {
-                type: String,
-                required: true
-            },
-            description: {
-                type: String,
-                required: true
-            }
-        }
-    ],
     price: {
         type: Number,
         required: [true, "Please enter product price"]

@@ -24,11 +24,11 @@ const UpdateProduct = () => {
 
     const [highlights, setHighlights] = useState([]);
     const [highlightInput, setHighlightInput] = useState("");
-    const [specs, setSpecs] = useState([]);
-    const [specsInput, setSpecsInput] = useState({
-        title: "",
-        description: ""
-    });
+    // const [specs, setSpecs] = useState([]);
+    // const [specsInput, setSpecsInput] = useState({
+    //     title: "",
+    //     description: ""
+    // });
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -45,15 +45,15 @@ const UpdateProduct = () => {
     const [logo, setLogo] = useState("");
     const [logoPreview, setLogoPreview] = useState("");
 
-    const handleSpecsChange = (e) => {
-        setSpecsInput({ ...specsInput, [e.target.name]: e.target.value });
-    }
+    // const handleSpecsChange = (e) => {
+    //     setSpecsInput({ ...specsInput, [e.target.name]: e.target.value });
+    // }
 
-    const addSpecs = () => {
-        if (!specsInput.title.trim() || !specsInput.title.trim()) return;
-        setSpecs([...specs, specsInput]);
-        setSpecsInput({ title: "", description: "" });
-    }
+    // const addSpecs = () => {
+    //     if (!specsInput.title.trim() || !specsInput.title.trim()) return;
+    //     setSpecs([...specs, specsInput]);
+    //     setSpecsInput({ title: "", description: "" });
+    // }
 
     const addHighlight = () => {
         if (!highlightInput.trim()) return;
@@ -65,9 +65,9 @@ const UpdateProduct = () => {
         setHighlights(highlights.filter((h, i) => i !== index))
     }
 
-    const deleteSpec = (index) => {
-        setSpecs(specs.filter((s, i) => i !== index))
-    }
+    // const deleteSpec = (index) => {
+    //     setSpecs(specs.filter((s, i) => i !== index))
+    // }
 
     const handleLogoChange = (e) => {
         const reader = new FileReader();
@@ -113,10 +113,10 @@ const UpdateProduct = () => {
             enqueueSnackbar("Add Highlights", { variant: "warning" });
             return;
         }
-        if (specs.length <= 1) {
-            enqueueSnackbar("Add Minimum 2 Specifications", { variant: "warning" });
-            return;
-        }
+        // if (specs.length <= 1) {
+        //     enqueueSnackbar("Add Minimum 2 Specifications", { variant: "warning" });
+        //     return;
+        // }
 
         const formData = new FormData();
 
@@ -138,9 +138,9 @@ const UpdateProduct = () => {
             formData.append("highlights", h);
         });
 
-        specs.forEach((s) => {
-            formData.append("specifications", JSON.stringify(s));
-        });
+        // specs.forEach((s) => {
+        //     formData.append("specifications", JSON.stringify(s));
+        // });
 
         dispatch(updateProduct(params.id, formData));
     }
@@ -161,7 +161,7 @@ const UpdateProduct = () => {
             setWarranty(product.warranty);
             setBrand(product.brand.name);
             setHighlights(product.highlights);
-            setSpecs(product.specifications);
+            // setSpecs(product.specifications);
             setOldImages(product.images);
             setLogoPreview(product.brand.logo.url);
         }
@@ -334,25 +334,6 @@ const UpdateProduct = () => {
                 </div>
 
                 <div className="flex flex-col gap-2 m-2 sm:w-1/2">
-                    <h2 className="font-medium">Specifications</h2>
-
-                    <div className="flex justify-evenly gap-2 items-center">
-                        <TextField value={specsInput.title} onChange={handleSpecsChange} name="title" label="Name" placeholder="About" variant="outlined" size="small" />
-                        <TextField value={specsInput.description} onChange={handleSpecsChange} name="description" label="Description" placeholder="Write Something" variant="outlined" size="small" />
-                        <span onClick={() => addSpecs()} className="py-2 px-6 bg-primary-green text-white rounded hover:shadow-lg cursor-pointer">Add</span>
-                    </div>
-
-                    <div className="flex flex-col gap-1.5">
-                        {specs.map((spec, i) => (
-                            <div className="flex justify-between items-center text-sm rounded bg-blue-50 py-1 px-2">
-                                <p className="text-gray-500 font-medium">{spec.title}</p>
-                                <p>{spec.description}</p>
-                                <span onClick={() => deleteSpec(i)} className="text-red-600 hover:bg-red-200 bg-red-100 p-1 rounded-full cursor-pointer">
-                                    <DeleteIcon />
-                                </span>
-                            </div>
-                        ))}
-                    </div>
 
                     <h2 className="font-medium">Product Images</h2>
                     <div className="flex gap-2 overflow-x-auto h-32 border rounded">

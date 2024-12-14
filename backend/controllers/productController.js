@@ -104,11 +104,11 @@ exports.createProduct = asyncErrorHandler(async (req, res, next) => {
     req.body.images = imagesLink;
     req.body.user = req.user.id;
 
-    let specs = [];
-    req.body.specifications.forEach((s) => {
-        specs.push(JSON.parse(s))
-    });
-    req.body.specifications = specs;
+    // let specs = [];
+    // req.body.specifications.forEach((s) => {
+    //     specs.push(JSON.parse(s))
+    // });
+    // req.body.specifications = specs;
 
     const product = await Product.create(req.body);
 
@@ -169,11 +169,11 @@ exports.updateProduct = asyncErrorHandler(async (req, res, next) => {
         }
     }
 
-    let specs = [];
-    req.body.specifications.forEach((s) => {
-        specs.push(JSON.parse(s))
-    });
-    req.body.specifications = specs;
+    // let specs = [];
+    // req.body.specifications.forEach((s) => {
+    //     specs.push(JSON.parse(s))
+    // });
+    // req.body.specifications = specs;
     req.body.user = req.user.id;
 
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {

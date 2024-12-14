@@ -274,20 +274,20 @@ const ProductDetails = () => {
                                     {/* <!-- border box --> */}
 
                                     {/* <!-- specifications border box --> */}
-                                    <div className="w-full mt-4 pb-4 rounded-sm border flex flex-col">
+                                    {/* <div className="w-full mt-4 pb-4 rounded-sm border flex flex-col">
                                         <h1 className="px-6 py-4 border-b text-2xl font-medium">Specifications</h1>
                                         <h1 className="px-6 py-3 text-lg">General</h1>
 
                                         {/* <!-- specs list --> */}
-                                        {product.specifications?.map((spec, i) => (
+                                        {/* {product.specifications?.map((spec, i) => (
                                             <div className="px-6 py-2 flex items-center text-sm" key={i}>
                                                 <p className="text-gray-500 w-3/12">{spec.title}</p>
                                                 <p className="flex-1">{spec.description}</p>
                                             </div>
-                                        ))}
+                                        ))} */}
                                         {/* <!-- specs list --> */}
 
-                                    </div>
+                                        {/* </div>  */}
                                     {/* <!-- specifications border box --> */}
 
                                     {/* <!-- reviews border box --> */}
