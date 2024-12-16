@@ -27,6 +27,9 @@ const user = require("./routes/userRoute");
 const product = require("./routes/productRoute");
 const order = require("./routes/orderRoute");
 const payment = require("./routes/paymentRoute");
+//recommend
+const recommendation = require("./routes/recommendRouter");
+app.use("/api/v1", recommendation);
 
 app.use("/api/v1", user);
 app.use("/api/v1", product);

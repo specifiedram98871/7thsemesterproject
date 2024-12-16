@@ -4,8 +4,7 @@ const mongoose = require("mongoose");
 const MONGO_URI = process.env.MONGO_URI;
 
 //local env
-// const MONGO_URI = 'mongodb://localhost:27017/ecommerce';
-
+// const MONGO_URI = "mongodb://localhost:27017/ecommerce";
 
 const connectDatabase = () => {
   mongoose
