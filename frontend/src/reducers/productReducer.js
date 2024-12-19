@@ -36,6 +36,8 @@ import {
     SLIDER_PRODUCTS_FAIL,
     SLIDER_PRODUCTS_REQUEST,
     SLIDER_PRODUCTS_SUCCESS,
+    RECOMMENDED,
+    RECOMMENDEDERROR
 } from "../constants/productConstants";
 
 export const productsReducer = (state = { products: [] }, { type, payload }) => {
@@ -287,6 +289,24 @@ export const reviewReducer = (state = {}, { type, payload }) => {
                 ...state,
                 error: null,
             };
+        default:
+            return state;
+    }
+}
+
+export const recommendedReducer = (state = { recommended: [] }, { type, payload }) => {
+
+    switch (type) {
+        case RECOMMENDED:
+            return {
+                ...state,
+                recommended: payload
+            }
+        case RECOMMENDEDERROR:
+            return {
+                ...state,
+                error: payload
+            }
         default:
             return state;
     }

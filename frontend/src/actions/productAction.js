@@ -31,6 +31,8 @@ import {
   SLIDER_PRODUCTS_REQUEST,
   SLIDER_PRODUCTS_SUCCESS,
   SLIDER_PRODUCTS_FAIL,
+  RECOMMENDED,
+  RECOMMENDEDERROR
 } from "../constants/productConstants";
 
 // Get All Products --- Filter/Search/Sort
@@ -290,4 +292,36 @@ export const deleteReview = (reviewId, productId) => async (dispatch) => {
 // Clear All Errors
 export const clearErrors = () => (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
+};
+
+
+
+
+export const recommendProducts = (id) => async (dispatch) => {
+  try {
+    console.log("Fetching recommendations for user with ID:", id);
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACK_URL}/api/v1/recommend/${id}`
+      // { withCredentials: true }
+    );
+
+    if (!response || !response.data) {
+      throw new Error("Invalid response from server");
+    }
+
+    const data = response.data; // Ensure you're accessing the correct part of the response
+
+    console.log("API Response:", data.recommendations);
+
+    dispatch({
+      type: RECOMMENDED,
+      payload: data.recommendations, // Ensure you're accessing the correct part of the response
+    });
+  } catch (error) {
+    // console.error("Error fetching recommendations:", error);
+    dispatch({
+      type: RECOMMENDEDERROR,
+      payload: error.response?.data?.message || "An error occurred",
+    });
+  }
 };
