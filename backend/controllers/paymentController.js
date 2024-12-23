@@ -51,19 +51,19 @@ const processPayment = asyncErrorHandler(async (req, res, next) => {
 const KhaltiResponse = async (req, res) => {
   const { pidx, amount, purchase_order_id, transaction_id } = req.query;
 
+  const paymentInfo = await verifyKhaltiPayment(pidx);
   try {
-    const paymentInfo = await verifyKhaltiPayment(pidx);
-
     if (
       paymentInfo.status !== "Completed" ||
       paymentInfo.transaction_id !== transaction_id ||
       Number(paymentInfo.total_amount) !== Number(amount)
     ) {
-      return res.status(400).json({
-        success: false,
-        message: "Payment verification failed",
-        paymentInfo,
-      });
+      // return res.status(400).json({
+      //   success: false,
+      //   message: "Payment verification failed",
+      //   paymentInfo,
+      // });
+       return res.redirect(`${process.env.WEBSITE_URL}/payment/failed`); //redirect to payment failed page
     }
 
     const paymentData = {
@@ -87,9 +87,10 @@ const KhaltiResponse = async (req, res) => {
     res.redirect(`${process.env.WEBSITE_URL}/order/${purchase_order_id}`); //redirect to order page
   } catch (error) {
     console.error("Error processing Khalti response:", error);
-    res
-      .status(500)
-      .json({ success: false, message: "Error processing payment" });
+    redirect(`${process.env.WEBSITE_URL}/cart`); //redirect to payment failed page
+  //   res
+  //     .status(500)
+  //     .json({ success: false, message: "Error processing payment" });
   }
 };
 
@@ -111,10 +112,18 @@ const verifyKhaltiPayment = async (pidx) => {
 
     const response = await axios.request(reqOptions);
     return response.data;
-    // console.log('response', response.data);
+    console.log('response', response.data);
   } catch (error) {
-    console.error("Error verifying Khalti payment:", error);
-    throw error;
+     if (error.response) {
+       // API responded with an error status
+       return { error: error.response.data, status: error.response.status };
+     } else if (error.request) {
+       // Request was made but no response received
+       throw new Error("No response received from Khalti API");
+     } else {
+       // Other errors
+       throw new Error("Error during payment verification");
+     }
   }
 };
 const addPayment = async (data) => {

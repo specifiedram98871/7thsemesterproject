@@ -138,6 +138,10 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
+        <Route
+          path="/payment/failed"
+          element={<OrderSuccess success={false} />}
+        />
 
         <Route
           path="/orders/success"
