@@ -4,12 +4,14 @@ import "slick-carousel/slick/slick-theme.css";
 import './Banner.css';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import gadgetSale from '../../../assets/images/Banners/gadget-sale.jpg';
-import kitchenSale from '../../../assets/images/Banners/kitchen-sale.jpg';
-import poco from '../../../assets/images/Banners/poco-m4-pro.webp';
-import realme from '../../../assets/images/Banners/realme-9-pro.webp';
-import fashionSale from '../../../assets/images/Banners/fashionsale.jpg';
-import oppo from '../../../assets/images/Banners/oppo-reno7.webp';
+import sale1 from '../../../assets/images/Banners/sale1.webp';
+import sale2 from '../../../assets/images/Banners/sale2.jpg';
+import sale3 from '../../../assets/images/Banners/sale3.jpg';
+import sale4 from '../../../assets/images/Banners/sale4.webp';
+import sale5 from '../../../assets/images/Banners/sale5.jpg';
+import sale6 from '../../../assets/images/Banners/sale6.webp';
+import sale7 from '../../../assets/images/Banners/sale7.webp';
+
 
 export const PreviousBtn = ({ className, onClick }) => {
   return (
@@ -41,7 +43,7 @@ const Banner = () => {
     nextArrow: <NextBtn />,
   };
 
-  const banners = [gadgetSale, kitchenSale, poco, fashionSale, realme, oppo];
+  const banners = [sale1,sale2,sale3,sale4,sale5,sale6,sale7]
 
   return (
     <>

@@ -4,7 +4,7 @@ const EmptyCart = () => {
     return (
         <div className="flex items-center flex-col gap-2 m-6">
             <div className="w-52 h-44">
-                <img draggable="false" className="w-full h-full object-contain" src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png" alt="Empty Cart" />
+                <img draggable="false" className="w-full h-full object-contain" src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-illustration-download-in-svg-png-gif-file-formats--shopping-ecommerce-simple-error-state-pack-user-interface-illustrations-6024626.png?f=webp" alt="Empty Cart" />
             </div>
             <span className="text-lg">Your cart is empty!</span>
             <p className="text-xs">Add items to it now.</p>
