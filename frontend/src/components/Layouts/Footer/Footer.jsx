@@ -33,14 +33,6 @@ const footerLinks = [
       { name: "EPR Compliance", redirect: "/epr" },
     ]
   },
-  {
-    title: "social",
-    links: [
-      { name: "Facebook", redirect: "https://www.facebook.com/ShopEase" },
-      { name: "Twitter", redirect: "https://twitter.com/ShopEase" },
-      { name: "YouTube", redirect: "https://www.youtube.com/ShopEase" },
-    ]
-  }
 ];
 
 const Footer = () => {
@@ -74,21 +66,13 @@ const Footer = () => {
             <div className="border-gray-600 h-36 w-1 border-l mr-5 mt-6 hidden sm:block"></div>
             <div className="w-full sm:w-5/12 my-6 mx-5 sm:mx-0 flex flex-col sm:flex-row gap-2 sm:gap-0 justify-between">
               <div className="w-full sm:w-1/2">
-                <h2 className="text-primary-green">Mail Us:</h2>
-                <p className="mt-2 leading-5">ShopEase Private Limited,<br />
-                  Baneshwor, Kathmandu &<br />
-                  Nepal,<br />
+                <h2 className="text-primary-green">Made By:</h2>
+                <p className="mt-2 leading-5">Ram Timalsina<br />
+                  Sanjay Tripathi<br />
+                  Sushant Pant<br />
                 </p>
               </div>
 
-              <div className="w-full sm:w-1/2">
-                <h2 className="text-primary-green">Registered Office Address:</h2>
-                <p className="mt-2 leading-5">ShopEase Private Limited,<br />
-                  Baneshwor, Kathmandu &<br />
-                  Nepal,<br />
-                  Telephone: <a className="text-primary-blue" href="tel:01410671">01-410671</a>
-                </p>
-              </div>
             </div>
           </footer>
 
