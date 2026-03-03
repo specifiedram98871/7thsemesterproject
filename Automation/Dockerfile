@@ -14,4 +14,4 @@ RUN npm install
 COPY . .
 
 # Run Cypress tests by default
-CMD ["cypress", "run"]
+CMD ["npx","cypress", "run"]
