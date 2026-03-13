@@ -31,7 +31,7 @@ const Recommendation = ({ products }) => {
 
   if (userError) {
     console.error("Error fetching user:", userError);
-    return <div>Error fetching user</div>;
+    return <div>Login to get recommendations</div>;
   }
 
   if (recommendedError) {
