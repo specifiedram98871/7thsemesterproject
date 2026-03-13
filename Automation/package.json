@@ -4,8 +4,8 @@
   "description": "Automation and testing setup for ShopEase Ecommerce",
   "scripts": {
     "test": "mocha",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "devDependencies": {
     "chai": "^4.3.7",

@@ -8,7 +8,7 @@ module.exports = defineConfig({
     screenshotsFolder:"cypress/screenshots",
     videosFolder:"cypress/videos",
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      
     },
   },
 });
