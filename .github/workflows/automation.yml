@@ -1,0 +1,34 @@
+name: Cypress automation for ShopEase
+
+on:
+  push:
+    paths:
+      - 'Automation/**'
+    branches: [ Automation ]
+  pull_request:
+    branches: [ Automation]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run cy:run
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-reports
+          path: cypress/reports
