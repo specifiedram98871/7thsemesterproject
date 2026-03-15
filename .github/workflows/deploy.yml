@@ -1,0 +1,13 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+    deploy-frontend:
+      name: Deploy to Vercel
+      runs-on: ubuntu-latest
+     
