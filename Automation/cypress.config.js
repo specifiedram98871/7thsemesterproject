@@ -7,6 +7,7 @@ module.exports = defineConfig({
     video:true,
     screenshotsFolder:"cypress/screenshots",
     videosFolder:"cypress/videos",
+    defaultCommandTimeout: 9900,
     setupNodeEvents(on, config) {
       
     },
