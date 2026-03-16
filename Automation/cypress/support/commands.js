@@ -2,7 +2,7 @@
 Cypress.Commands.add('login', (email, password) => { 
     cy.request({
         method:"POST",
-        url:"http://localhost:3000/api/v1/login",
+        url:`${Cypress.env('backendUrl')}/api/v1/login`,
         body:{
             email:"admin@gmail.com",
             password:"admin123"
