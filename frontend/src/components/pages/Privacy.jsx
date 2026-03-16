@@ -42,7 +42,7 @@ const Privacy = () => {
 
       <h2 className="section-title">7. Contact Us</h2>
       <p className="text">
-        If you have any questions about this Privacy Policy, please contact us at privacy@example.com.
+        If you have any questions about this Privacy Policy, please contact us at flirtysec98871@gmail.com.
       </p>
     </div>
   );
