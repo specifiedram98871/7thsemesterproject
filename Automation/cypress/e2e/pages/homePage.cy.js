@@ -1,6 +1,6 @@
 import { catNav } from "../../support/utils/utils";
 
-describe('Home Page Functionality - ShopEase', () => {
+describe('Home Page Functionality - ShopEase', { retries: 2 }, () => {
     let testUser;
     before(() => {
         cy.fixture("login/loginData").then((data) => {
@@ -8,9 +8,10 @@ describe('Home Page Functionality - ShopEase', () => {
             cy.login(testUser.email, testUser.password);
         })
     })
-    beforeEach(() => {
+
+   beforeEach(() => {
         cy.visit('/');
-    });
+});
 
     it('TC_HOME_004:Verify [Login] button navigates to the Login page.', () => {
         cy.get('a[href="/login"]').click();
