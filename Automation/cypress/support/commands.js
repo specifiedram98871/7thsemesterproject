@@ -4,8 +4,8 @@ Cypress.Commands.add('login', (email, password) => {
         method:"POST",
         url:`${Cypress.env('backendUrl')}/api/v1/login`,
         body:{
-            email:"admin@gmail.com",
-            password:"admin123"
+            email:email,
+            password:password
         }
     }).then((res)=>{
         expect(res.status).to.eq(201)
@@ -13,3 +13,4 @@ Cypress.Commands.add('login', (email, password) => {
         expect(res.body.success).to.eq(true)
     })
  })
+ 
