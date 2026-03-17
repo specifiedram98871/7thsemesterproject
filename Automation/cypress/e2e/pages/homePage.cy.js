@@ -22,7 +22,7 @@ describe('Home Page Functionality - ShopEase', () => {
         cy.url().should('include', '/cart');
     })
 
-    it.only('TC_HOME_009:Verify search returns results for a valid product keyword', () => {
+    it('TC_HOME_009:Verify search returns results for a valid product keyword', () => {
         const keyword = "Baked bun";
         cy.get('input[placeholder="Search for products, brands and more"]').type(keyword);
         cy.get('button[type="submit"]').click();
@@ -39,7 +39,7 @@ describe('Home Page Functionality - ShopEase', () => {
         cy.contains('Please check the spelling or try searching for something else').should('be.visible');
     })
 
-    it.only('TC_HOME_014:Verify all category icons are displayed on the Home page', () => {
+    it('TC_HOME_014:Verify all category icons are displayed on the Home page', () => {
         cy.get('div.flex.items-center.justify-between.mt-4').within(() => {
             catNav.forEach((category) => {
                 cy.contains(category).should('be.visible');
@@ -49,7 +49,7 @@ describe('Home Page Functionality - ShopEase', () => {
 
     })
 
-    it.only('TC_HOME_015-022:Verify all category links are navigable', () => {
+    it('TC_HOME_015-022:Verify all category links are navigable', () => {
         cy.get('div.flex.items-center.justify-between.mt-4').within(() => {
             cy.wrap(catNav).each((category) => {
                 cy.contains(category).click();
