@@ -159,6 +159,35 @@ describe('Home Page Functionality - ShopEase', { retries: 2 }, () => {
                 expect(decodedUrl).to.include('/products?category=Top Brands, Best Price');
             });
         })
+
+        it('TC_HOME_035:Verify Home page title and favicon are correct', () => {
+            cy.title().should('eq', 'Welcome To ShopEase');
+            cy.get('img[alt="ShopEase Logo"]').should('have.attr', 'alt', 'ShopEase Logo');
+        })
+    })
+
+    context("Login State", () => {
+        beforeEach(() => {
+            cy.mockCommonApis();
+            cy.visit('/login');
+            cy.fixture("login/loginData").then((data) => {
+                cy.GUIlogin(data.email, data.password);
+            });
+        })
+
+        it('TC_HOME_036:Verify [Login] button is replaced with user profile info after login', () => {
+            cy.get('a[href="/login"]').should('not.exist');
+            cy.get('a[href="/account"]').should('be.visible');
+        })
+
+        it('TC_HOME_037:Verify cart item count resets to zero for a new guest session', () => {
+
+            cy.reload()
+            cy.get('a[href="/cart"]').click();
+            cy.url().should('include', '/cart');
+            cy.contains('Your cart is empty').should('be.visible');
+            cy.visit('/');
+        })
     })
 
 })
