@@ -23,13 +23,37 @@ export const categories = [
 ];
 
 export const catNav = [
-   "Bakery" ,
-   "Packaged Foods" ,
-   "Snacks and Beverages" ,
-   "Household Essentials" ,
-   "Frozen Foods" ,
-   "Dairy and Eggs" ,
-   "International Foods",
-   "Fresh Produce" 
-];
+    {
+        name: "Bakery",
+        icon: "bakery",
+    },
+    {
+        name: "Packaged Foods",
+        icon: "candy"   ,
+    },
+    {
+        name: "Snacks and Beverages",
+        icon: "drinks",
+    },
+    {
+        name: "Household Essentials",
+        icon: "essentials",
+    },
+    {
+        name: "Frozen Foods",
+        icon: "meat",
+    },
+    {
+        name: "Dairy and Eggs",
+        icon: "milk",
+    },
+    {
+        name: "International Foods",
+        icon: "snacks",
+    },
+    {
+        name: "Fresh Produce",
+        icon: "vegetables",
+    },
+]
 
