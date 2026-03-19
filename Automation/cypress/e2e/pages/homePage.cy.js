@@ -232,13 +232,13 @@ describe('Home Page Functionality - ShopEase', { retries: 2 }, () => {
 
         });
 
-        it.only("TC_HOME_040:Verify [>] and [<] navigates to respective set of deal cards", () => {
+        it("TC_HOME_040-41:Verify [>] and [<] navigates to respective set of deal cards", () => {
 
             cy.get('.slick-prev').should('be.visible')
             cy.get('.slick-next').should('be.visible')
 
             // 4. Capture current slide index
-            cy.get('.slick-current')
+            cy.get('.slick-current').eq(1)
                 .invoke('attr', 'data-index')
                 .then((initialIndex) => {
 
@@ -272,6 +272,84 @@ describe('Home Page Functionality - ShopEase', { retries: 2 }, () => {
                         .invoke('attr', 'data-index')
                         .should('not.eq', currentIndex)
                 })
+        })
+
+        it("TC_HOME_042:Verify clicking on a deal card navigates to the correct product detail page", () => {
+            cy.get('.slick-slide.slick-active').eq(1).within(() => {
+                cy.get('a').first().click();
+            })
+            cy.url().should('include', '/products');
+        })
+
+    })
+    context("Suggestion Section", () => {
+        beforeEach(() => {
+            cy.mockCommonApis();
+        })
+
+        it("TC_HOME_046:Verify Suggested for You section is displayed on Home page scroll and [VIEW ALL] button navigates to product page.", () => {
+            cy.contains('Suggested for You')
+                .scrollIntoView()
+                .should('be.visible');
+            cy.contains('Based on Your Activity').should('be.visible');
+            cy.contains('view all')
+                .parent()
+                .find('a')
+                .click();
+            cy.url().should('include', '/products');
+        })
+
+        it("TC_HOME_049:Verify Suggested for You section shows login prompt for guest users.", () => {
+            cy.visit('/'); // Ensure we're on the home page
+            cy.contains('Suggested for You')
+                .scrollIntoView()
+                .should('be.visible');
+            cy.contains('Login to get recommendations').should('be.visible');
+
+        })
+
+    })
+
+    context("Footer Section", () => {
+        let footerLinks;
+        before(() => {
+            cy.fixture('homePage/footerLinks').then((links) => {
+                footerLinks = links;
+            })
+        })
+        beforeEach(() => {
+            cy.mockCommonApis();
+        })
+
+        it("TC_HOME_058:Verify Footer ABOUT section is displayed at the bottom of the Home page", () => {
+            it('Verify footer is displayed at the bottom of the Home page', () => {
+                cy.get('footer').should('be.visible');
+                cy.get('footer').scrollIntoView();
+            });
+        })
+
+        it("TC_HOME_059-71:Verify [Contact Us] link in footer navigates to the correct page", () => {
+            cy.get('footer').within(() => {
+                footerLinks.forEach((link) => {
+                    cy.contains(link.label)
+                        .should('be.visible')
+                        .and('have.attr', 'href', link.link)
+                        .click();
+                    cy.url().should('include', link.link);
+                    cy.visit('/');
+                });
+            });
+        })
+
+        it("TC_HOME_072:Verify copyright text is displayed correctly in the footer.", () => {
+            cy.contains('© 2020-2026 ShopEase.com')
+                .should('be.visible');
+        })
+
+        it("TC_HOME_073:Verify copyright year is current and not outdated.", () => {
+            const currentYear = new Date().getFullYear();
+            cy.contains(`© 2020-${currentYear} ShopEase.com`)
+                .should('be.visible');
         })
 
     })
