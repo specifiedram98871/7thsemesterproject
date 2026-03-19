@@ -1,4 +1,4 @@
-import { catNav } from "../../support/utils/utils";
+import { catNav, offerProducts } from "../../support/utils/utils";
 
 describe('Home Page Functionality - ShopEase', { retries: 2 }, () => {
     // let testUser;
@@ -181,13 +181,99 @@ describe('Home Page Functionality - ShopEase', { retries: 2 }, () => {
         })
 
         it('TC_HOME_037:Verify cart item count resets to zero for a new guest session', () => {
-
             cy.reload()
             cy.get('a[href="/cart"]').click();
             cy.url().should('include', '/cart');
             cy.contains('Your cart is empty').should('be.visible');
             cy.visit('/');
         })
+
+    })
+
+    context("Deals Carousel", () => {
+        beforeEach(() => {
+            cy.mockCommonApis();
+        })
+
+        it("TC_HOME_038:Verify Deals carousel section is displayed on scroll.", () => {
+            cy.contains('Top Brands, Best Price')
+                .scrollIntoView()
+                .should('be.visible');
+        })
+
+        it("TC_HOME_039:Verify all deal cards display product image, category name, discount label, and action text.", () => {
+            cy.contains('Top Brands, Best Price')
+                .scrollIntoView();
+            cy.get('.slick-slide.slick-active')
+                .should('have.length.greaterThan', 0)
+                .each(($card) => {
+
+                    cy.wrap($card)
+                    // Image 
+                    cy.wrap($card)
+                        .find('img')
+                        .should('exist')
+                        .and('have.attr', 'src');
+
+                    // Title
+                    cy.get('h2')
+                        .should('exist')
+                        .and('not.be.empty');
+
+                    // Offer
+
+                    cy.get('.text-primary-green')
+                        .should('exist');
+
+                    // Text
+                    cy.get('.text-gray-500')
+                        .should('exist');
+                });
+
+        });
+
+        it.only("TC_HOME_040:Verify [>] and [<] navigates to respective set of deal cards", () => {
+
+            cy.get('.slick-prev').should('be.visible')
+            cy.get('.slick-next').should('be.visible')
+
+            // 4. Capture current slide index
+            cy.get('.slick-current')
+                .invoke('attr', 'data-index')
+                .then((initialIndex) => {
+
+                    // 5. Wait for autoslide (adjust timing if needed)
+                    cy.wait(3000)
+
+                    // 6. Verify slide changed
+                    cy.get('.slick-current')
+                        .invoke('attr', 'data-index')
+                        .should('not.eq', initialIndex)
+                })
+
+            // 7. Test NEXT button
+            cy.get('.slick-current')
+                .invoke('attr', 'data-index')
+                .then((currentIndex) => {
+                    cy.get('.slick-next').eq(1).click()
+
+                    cy.get('.slick-current')
+                        .invoke('attr', 'data-index')
+                        .should('not.eq', currentIndex)
+                })
+
+            // 8. Test PREV button
+            cy.get('.slick-current')
+                .invoke('attr', 'data-index')
+                .then((currentIndex) => {
+                    cy.get('.slick-prev').eq(1).click()
+
+                    cy.get('.slick-current')
+                        .invoke('attr', 'data-index')
+                        .should('not.eq', currentIndex)
+                })
+        })
+
     })
 
 })
