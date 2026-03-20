@@ -328,7 +328,7 @@ describe('Home Page Functionality - ShopEase', { retries: 2 }, () => {
             });
         })
 
-        it("TC_HOME_059-71:Verify [Contact Us] link in footer navigates to the correct page", () => {
+        it("TC_HOME_059-71:Verify each link in footer navigates to the correct page", () => {
             cy.get('footer').within(() => {
                 footerLinks.forEach((link) => {
                     cy.contains(link.label)
