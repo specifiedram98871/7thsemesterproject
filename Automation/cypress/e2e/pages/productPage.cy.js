@@ -34,5 +34,11 @@ describe("Product Page functionality", () => {
       cy.contains("clear all").should("be.visible").click();
       cy.contains("Baked bun").should("not.exist");
     });
+
+    it("TC_CAT_009:Verify PRICE filter section is displayed with a range slider", { retries: 2 }, () => {
+      cy.contains("PRICE").should("be.visible");
+      cy.get(".MuiSlider-valueLabel").should("be.visible");
+      cy.get(".MuiSlider-valueLabelCircle").should("be.visible");
+    });
   });
 });
