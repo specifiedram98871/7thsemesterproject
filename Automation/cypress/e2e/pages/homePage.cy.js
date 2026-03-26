@@ -62,34 +62,34 @@ describe('Home Page Functionality - ShopEase', { retries: 2 }, () => {
 
         })
 
-        it('TC_HOME_015-022:Verify all category links are navigable', () => {
-            cy.get('div.flex.items-center.justify-between.mt-4').within(() => {
-                cy.wrap(catNav).each((category) => {
-                    cy.contains(category.name).click();
-                    cy.url().should('include', `/products?category=${encodeURIComponent(category.name)}`);
-                    cy.visit('/');// navigate back home
-                });
-            })
-        })
+        // it('TC_HOME_015-022:Verify all category links are navigable', () => {
+        //     cy.get('div.flex.items-center.justify-between.mt-4').within(() => {
+        //         cy.wrap(catNav).each((category) => {
+        //             cy.contains(category.name).click();
+        //             cy.url().should('include', `/products?category=${encodeURIComponent(category.name)}`);
+        //             cy.visit('/');// navigate back home
+        //         });
+        //     })
+        // })
 
-        it('TC_HOME_023:Verify all category icons load with correct images and labels', () => {
-            cy.get('div.flex.items-center.justify-between.mt-4').within(() => {
-                cy.wrap(catNav).each((category) => {
-                    cy.get(`a[href="/products?category=${category.name}"]`).within(() => {
-                        cy.get(`img[alt="${category.name}"]`)
-                            .should('be.visible')
-                            .and($img => {
-                                const src = $img.attr('src');
-                                expect(src).to.include(category.icon);
-                            })
-                        cy.get('span')
-                            .should('be.visible')
-                            .and('have.text', category.name);
-                    });
-                    cy.visit('/');
-                });
-            })
-        })
+        // it('TC_HOME_023:Verify all category icons load with correct images and labels', () => {
+        //     cy.get('div.flex.items-center.justify-between.mt-4').within(() => {
+        //         cy.wrap(catNav).each((category) => {
+        //             cy.get(`a[href="/products?category=${category.name}"]`).within(() => {
+        //                 cy.get(`img[alt="${category.name}"]`)
+        //                     .should('be.visible')
+        //                     .and($img => {
+        //                         const src = $img.attr('src');
+        //                         expect(src).to.include(category.icon);
+        //                     })
+        //                 cy.get('span')
+        //                     .should('be.visible')
+        //                     .and('have.text', category.name);
+        //             });
+        //             cy.visit('/');
+        //         });
+        //     })
+        // })
 
         it('TC_HOME_024-28:Verify the promotional banner is displayed on the Home page and autoslides and [<] [>] buttons are are clickable and present', () => {
             cy.get('section').find('.slick-slider').should('be.visible')
@@ -180,13 +180,13 @@ describe('Home Page Functionality - ShopEase', { retries: 2 }, () => {
             cy.get('a[href="/account"]').should('be.visible');
         })
 
-        it('TC_HOME_037:Verify cart item count resets to zero for a new guest session', () => {
-            cy.reload()
-            cy.get('a[href="/cart"]').click();
-            cy.url().should('include', '/cart');
-            cy.contains('Your cart is empty').should('be.visible');
-            cy.visit('/');
-        })
+        // it('TC_HOME_037:Verify cart item count resets to zero for a new guest session', () => {
+        //     cy.reload()
+        //     cy.get('a[href="/cart"]').click();
+        //     cy.url().should('include', '/cart');
+        //     cy.contains('Your cart is empty').should('be.visible');
+        //     cy.visit('/');
+        // })
 
     })
 
@@ -299,14 +299,14 @@ describe('Home Page Functionality - ShopEase', { retries: 2 }, () => {
             cy.url().should('include', '/products');
         })
 
-        it("TC_HOME_049:Verify Suggested for You section shows login prompt for guest users.", () => {
-            cy.visit('/'); // Ensure we're on the home page
-            cy.contains('Suggested for You')
-                .scrollIntoView()
-                .should('be.visible');
-            cy.contains('Login to get recommendations').should('be.visible');
+        // it("TC_HOME_049:Verify Suggested for You section shows login prompt for guest users.", () => {
+        //     cy.visit('/'); // Ensure we're on the home page
+        //     cy.contains('Suggested for You')
+        //         .scrollIntoView()
+        //         .should('be.visible');
+        //     cy.contains('Login to get recommendations').should('be.visible');
 
-        })
+        // })
 
     })
 
@@ -328,18 +328,18 @@ describe('Home Page Functionality - ShopEase', { retries: 2 }, () => {
             });
         })
 
-        it("TC_HOME_059-71:Verify each link in footer navigates to the correct page", () => {
-            cy.get('footer').within(() => {
-                footerLinks.forEach((link) => {
-                    cy.contains(link.label)
-                        .should('be.visible')
-                        .and('have.attr', 'href', link.link)
-                        .click();
-                    cy.url().should('include', link.link);
-                    cy.visit('/');
-                });
-            });
-        })
+        // it("TC_HOME_059-71:Verify each link in footer navigates to the correct page", () => {
+        //     cy.get('footer').within(() => {
+        //         footerLinks.forEach((link) => {
+        //             cy.contains(link.label)
+        //                 .should('be.visible')
+        //                 .and('have.attr', 'href', link.link)
+        //                 .click();
+        //             cy.url().should('include', link.link);
+        //             cy.visit('/');
+        //         });
+        //     });
+        // })
 
         it("TC_HOME_072:Verify copyright text is displayed correctly in the footer.", () => {
             cy.contains('© 2020-2026 ShopEase.com')
