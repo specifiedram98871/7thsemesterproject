@@ -36,9 +36,49 @@ describe("Product Page functionality", () => {
     });
 
     it("TC_CAT_009:Verify PRICE filter section is displayed with a range slider", { retries: 2 }, () => {
-      cy.contains("PRICE").should("be.visible");
-      cy.get(".MuiSlider-valueLabel").should("be.visible");
-      cy.get(".MuiSlider-valueLabelCircle").should("be.visible");
+      cy.contains("PRICE").should("be.visible").parent().within(() => {
+      cy.get("input[aria-label='Price range slider']").should("be.visible").and("have.attr", "type", "range");
+      });
     });
+
+    // it.only("TC_CAT_010:Verify that adjusting the price range slider updates the product listings accordingly.", () => {
+    //   cy.intercept("GET", "products?keyword=&price[gte]=1182&price[lte]=20000&ratings[gte]=0&page=1",
+    //     { statusCode: 200,
+    //       body: { products: [], productsCount: 0, resultPerPage: 10, filteredProductsCount: 0 }}
+    //   ).as("getProducts");
+    //   cy.wait('@getProducts').then((interception) => {
+    //     expect(interception.request.url).to.include("price[gte]=1182");
+    //     expect(interception.request.url).to.include("price[lte]=20000");
+    //   });
+    //   cy.get("input[type='range']").first().invoke("val", 500).trigger("input").trigger("change");
+    // });
+
+    it("TC_CAT_016:Verify CATEGORY filter section displays all category options.", () => {
+      cy.contains("Category").should("be.visible");
+      categories.forEach((category) => {
+        if (category === "Bakery") {
+          cy.contains("Baked bun").should("be.visible");
+        }
+        cy.contains("label", category)
+          .scrollIntoView()
+          .should("be.visible").click()
+      });
+      cy.contains("ratings").should("be.visible");
+      {
+        [4, 3, 2, 1].forEach((rating) => {
+          cy.get('input[name="ratings-radio-buttons"]')
+            .check(`${rating}`, { force: true });
+        })
+      };
+    });
+
+    it("TC_CAT_020:Verify [CATEGORY] and [RATING] filter section can be collapsed and expanded using the arrow icon.", () => {
+      cy.contains("Category").should("be.visible").parent().within(() => {
+        cy.get("svg[data-testid='ExpandLessIcon']").should("be.visible").click();
+      });
+      cy.contains("ratings").should("be.visible").parent().within(() => {
+        cy.get("svg[data-testid='ExpandLessIcon']").should("be.visible").click();
+      })
+    })
   });
 });
