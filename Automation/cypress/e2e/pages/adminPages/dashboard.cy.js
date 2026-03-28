@@ -5,9 +5,9 @@ describe("Admin Dashboard", () => {
   });
 
   context("UI Flow to Admin Dashboard", () => {
-    
+
     it("TC_ADM_001:Verify that admin can successfully log in and access the dashboard.", () => {
-      cy.visit("/");
+      cy.visit("/account");
       cy.contains("admin").should("be.visible").click();
       cy.contains("Admin Dashboard").should("be.visible").click();
       cy.url().should("include", "/admin/dashboard");
