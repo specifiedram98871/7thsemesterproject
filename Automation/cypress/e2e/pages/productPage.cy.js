@@ -37,7 +37,7 @@ describe("Product Page functionality", () => {
 
     it("TC_CAT_009:Verify PRICE filter section is displayed with a range slider", { retries: 2 }, () => {
       cy.contains("PRICE").should("be.visible").parent().within(() => {
-      cy.get("input[aria-label='Price range slider']").should("be.visible").and("have.attr", "type", "range");
+        cy.get("input[aria-label='Price range slider']").should("be.visible").and("have.attr", "type", "range");
       });
     });
 
@@ -80,5 +80,36 @@ describe("Product Page functionality", () => {
         cy.get("svg[data-testid='ExpandLessIcon']").should("be.visible").click();
       })
     })
+    
+    it("TC_CAT_021:Verify no products are shown when a category with no products is selected.", () => {
+      cy.contains("label", "Grocery Staples")
+        .scrollIntoView()
+        .should("be.visible").click()
+      cy.get("h1").contains("Sorry, no results found!").should("be.visible"); // assertion
+      cy.contains("Please check the spelling or try searching for something else").should("be.visible");
+    });
+
+    it("TC_CAT_022:Verify RATINGS filter section displays all rating options and can be selected.", () => {
+      [4, 3, 2, 1].forEach((rating) => {
+        cy.get(`input[name="ratings-radio-buttons"][value="${rating}"]`)
+          .check({ force: true }).then(() => {
+            cy.get(`input[name="ratings-radio-buttons"][value="${rating}"]`).should("be.checked");
+            cy.contains("Please check the spelling or try searching for something else").should("be.visible");
+          });
+      })
+    });
+
+    it("TC_CAT_026: Verify only one rating option can be selected at a time.", () => {
+      [4, 3, 2, 1].forEach((rating) => {
+        cy.get(`input[name="ratings-radio-buttons"][value="${rating}"]`)
+          .check({ force: true }).then(() => {
+            cy.get(`input[name="ratings-radio-buttons"][value="${rating}"]`).should("be.checked");
+            // Verify that all other rating options are unchecked
+            [4, 3, 2, 1].filter(r => r !== rating).forEach(otherRating => {
+              cy.get(`input[name="ratings-radio-buttons"][value="${otherRating}"]`).should("not.be.checked");
+            });
+          });
+      });
+    });
   });
 });
