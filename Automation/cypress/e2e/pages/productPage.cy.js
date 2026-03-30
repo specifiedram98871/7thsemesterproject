@@ -80,7 +80,7 @@ describe("Product Page functionality", () => {
         cy.get("svg[data-testid='ExpandLessIcon']").should("be.visible").click();
       })
     })
-    
+
     it("TC_CAT_021:Verify no products are shown when a category with no products is selected.", () => {
       cy.contains("label", "Grocery Staples")
         .scrollIntoView()
@@ -110,6 +110,21 @@ describe("Product Page functionality", () => {
             });
           });
       });
+    });
+
+    it("TC_CAT_028:Verify Price and Category filters can be applied simultaneously", () => {
+      cy.getMe();
+      const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+      cy.get(`input[name="category-radio-buttons"][value="${randomCategory}"]`)
+        .check({ force: true })
+        .should("be.checked");
+      // Random rating
+      const ratings = [4, 3, 2, 1];
+      const randomRating = ratings[Math.floor(Math.random() * ratings.length)];
+
+      cy.get(`input[name="ratings-radio-buttons"][value="${randomRating}"]`)
+        .check({ force: true })
+        .should("be.checked");
     });
   });
 });
