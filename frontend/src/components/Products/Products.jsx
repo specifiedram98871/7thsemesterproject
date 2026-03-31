@@ -31,7 +31,7 @@ const Products = () => {
     const [categoryToggle, setCategoryToggle] = useState(true);
     const [ratingsToggle, setRatingsToggle] = useState(true);
 
-    const { products, loading, error, productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
+    const { products, loading, error, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
     const keyword = params.keyword;
 
     const priceHandler = (e, newPrice) => {
@@ -46,12 +46,12 @@ const Products = () => {
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
-        const newCategory = queryParams.get('category');
+        const newCategory = queryParams.get('category') || "";
         if (newCategory !== category) {
             setCategory(newCategory);
         }
         dispatch(getProducts(keyword, newCategory, price, ratings, currentPage));
-    }, [location.search, dispatch, keyword, price, ratings, currentPage]); // Make sure to include all dependencies
+    }, [location.search, category, dispatch, keyword, price, ratings, currentPage]);
 
     useEffect(() => {
         if (error) {
@@ -213,8 +213,6 @@ const Products = () => {
 <div className="grid grid-cols-1 sm:grid-cols-4 w-full place-content-start overflow-hidden pb-4 border-b">
   {products?.map((product) => {
     const path = window.location.pathname;
-  console.log(product)
-  let counter=1;
 
     if (path !== "/products" ) {
         // Retrieve the array from localStorage or set it to a default array with "Bakery"

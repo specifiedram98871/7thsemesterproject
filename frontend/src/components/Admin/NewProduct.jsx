@@ -22,11 +22,6 @@ const NewProduct = () => {
 
     const [highlights, setHighlights] = useState([]);
     const [highlightInput, setHighlightInput] = useState("");
-    const [specs, setSpecs] = useState([]);
-    const [specsInput, setSpecsInput] = useState({
-        title: "",
-        description: ""
-    });
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");

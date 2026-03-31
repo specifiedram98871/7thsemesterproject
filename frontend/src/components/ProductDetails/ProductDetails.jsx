@@ -10,10 +10,8 @@ import Loader from '../Layouts/Loader';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import StarIcon from '@mui/icons-material/Star';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import CachedIcon from '@mui/icons-material/Cached';
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -123,7 +121,7 @@ const ProductDetails = () => {
 
     useEffect(() => {
         dispatch(getSimilarProducts(product?.category));
-    }, [dispatch, product, product.category]);
+    }, [dispatch, product?.category]);
 
     return (
         <>
