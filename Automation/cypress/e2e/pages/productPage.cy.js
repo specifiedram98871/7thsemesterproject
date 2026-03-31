@@ -126,5 +126,35 @@ describe("Product Page functionality", () => {
         .check({ force: true })
         .should("be.checked");
     });
+
+    it("TC_CAT_030:Verify each product card displays product name, rating, price, and discount.", () => {
+      cy.get("span").contains("Bakery").click().then(() => {
+        // cy.get("img").should("be.visible");
+        cy.contains("Baked bun").should("be.visible");
+        cy.contains("0.0").should("be.visible");
+        cy.contains("Rs.").should("be.visible");
+        cy.contains("-4% off").should("be.visible");
+      });
+    });
+
+    it("TC_CAT_031:Verify the wishlist heart icon is displayed on each product card and clickable.", () => {
+      cy.get("span").contains("Bakery").click().then(() => {
+        cy.get("svg[data-testid='FavoriteIcon']").should("be.visible").click().then(() => {
+          cy.contains("Added To Wishlist").should("be.visible");
+        });
+      });
+      cy.wait(1000); // wait for the wishlist action to complete
+      cy.get("svg[data-testid='FavoriteIcon']").should("be.visible").click().then(() => {
+        cy.contains("Remove From Wishlist").should("be.visible");
+      });
+    });
+
+    it("TC_CAT_032:Verify clicking on a product card navigates to the product details page.", () => {
+      cy.get("span").contains("Bakery").click().then(() => {
+        cy.contains("Baked bun").should("be.visible").click();
+        cy.url().should("include", "/product/");
+        cy.contains("Baked bun").should("be.visible");
+      });
+    });
   });
 });
