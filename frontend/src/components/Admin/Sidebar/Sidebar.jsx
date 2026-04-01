@@ -83,7 +83,7 @@ const Sidebar = ({ activeTab, setToggleSidebar }) => {
                         <span className="font-medium text-lg">{user.name}</span>
                         <span className="text-gray-300 text-sm">{user.email}</span>
                     </div>
-                    <button onClick={() => setToggleSidebar(false)} className="sm:hidden bg-gray-800 ml-auto rounded-full w-10 h-10 flex items-center justify-center">
+                    <button onClick={() => setToggleSidebar?.(false)} className="sm:hidden bg-gray-800 ml-auto rounded-full w-10 h-10 flex items-center justify-center">
                         <CloseIcon />
                     </button>
                 </div>
