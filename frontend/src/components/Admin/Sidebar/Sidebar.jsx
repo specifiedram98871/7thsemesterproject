@@ -90,9 +90,9 @@ const Sidebar = ({ activeTab, setToggleSidebar }) => {
                     {navMenu.map((item, index) => {
                         const { icon, label, ref } = item;
                         return (
-                            <>
+                            <div key={ref || label}>
                                 {label === "Logout" ? (
-                                    <button onClick={handleLogout} className="hover:bg-gray-700 flex gap-3 items-center py-3 px-4 font-medium">
+                                    <button type="button" onClick={handleLogout} className="hover:bg-gray-700 flex gap-3 items-center py-3 px-4 font-medium">
                                         <span>{icon}</span>
                                         <span>{label}</span>
                                     </button>
@@ -106,7 +106,7 @@ const Sidebar = ({ activeTab, setToggleSidebar }) => {
                                         <span>{label}</span>
                                     </Link>
                                 )}
-                            </>
+                            </div>
                         );
                     })}
                 </div>
