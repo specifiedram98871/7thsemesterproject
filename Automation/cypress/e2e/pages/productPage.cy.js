@@ -149,7 +149,7 @@ describe("Product Page functionality", () => {
       });
     });
 
-    it("TC_CAT_032:Verify clicking on a product card navigates to the product details page.", () => {
+    it("TC_CAT_035:Verify clicking on a product card navigates to the product details page.", () => {
       cy.get("span").contains("Bakery").click().then(() => {
         cy.contains("Baked bun").should("be.visible").click();
         cy.url().should("include", "/product/");
