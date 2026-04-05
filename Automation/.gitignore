@@ -7,6 +7,8 @@ package-lock.json
 cypress/videos
 cypress/screenshots
 cypress/integration
+cypress/reports
+
 
 cypress/e2e/2-advanced-examples
 package-lock.json
