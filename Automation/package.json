@@ -5,11 +5,13 @@
   "scripts": {
     "test": "mocha",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run --spec 'cypress/e2e/auth/*.cy.js,cypress/e2e/pages/*.cy.js'",
+    "cy:run:report": "cypress run --spec 'cypress/e2e/auth/*.cy.js,cypress/e2e/pages/*.cy.js'"
   },
   "devDependencies": {
     "chai": "^4.3.7",
     "cypress": "^12.17.4",
+    "cypress-mochawesome-reporter": "^3.8.2",
     "mocha": "^10.2.0",
     "nodemailer": "^6.9.8",
     "supertest": "^6.3.4"
