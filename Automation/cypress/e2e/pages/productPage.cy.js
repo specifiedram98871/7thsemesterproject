@@ -138,8 +138,8 @@ describe("Product Page functionality", () => {
     });
 
     it("TC_CAT_031:Verify the wishlist heart icon is displayed on each product card and clickable.", () => {
-      cy.get("span").contains("Bakery").click().then(() => {
-        cy.get("svg[data-testid='FavoriteIcon']").should("be.visible").click().then(() => {
+      cy.get("span").contains("Bakery").click().wait(1000).then(() => {
+        cy.get("svg[data-testid='FavoriteIcon']").should("be.visible").first().click().then(() => {
           cy.contains("Added To Wishlist").should("be.visible");
         });
       });
