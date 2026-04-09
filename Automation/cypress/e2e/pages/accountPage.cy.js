@@ -64,5 +64,23 @@ describe("Account Page functionality", () => {
             cy.contains("Edit").should("be.visible").click();
             cy.url().should("include", "/account/update");
         })
+
+        it("TC_ACC_018:Verify clicking [Edit] enables editing of First Name and Last Name fields.", () => {
+            cy.contains("Personal Information").should("be.visible");
+            cy.contains("Edit").should("be.visible").click();
+            cy.url().should("include", "/account/update");
+            cy.contains("Update Profile").should("be.visible");
+            cy.contains("Full Name").should("be.visible");
+            cy.contains("Email").should("be.visible");
+        })
+
+        it("TC_ACC_037:Verify clicking [Change Password] opens the change password form or modal.", () => {
+            cy.contains("Change Password").should("be.visible").click();
+            cy.contains("Update Password").should("be.visible");
+            cy.contains("Current Password").should("be.visible");
+            cy.contains("New Password").should("be.visible");
+            cy.contains("Confirm New Password").should("be.visible");
+            cy.get("button").contains("Update").should("be.visible").and("be.enabled");
+        })
     })
 })
