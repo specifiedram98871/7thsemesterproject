@@ -24,7 +24,7 @@ const Shipping = () => {
 
     const [address, setAddress] = useState(shippingInfo.address);
     const [city, setCity] = useState(shippingInfo.city);
-    const [country, setCountry] = useState('NP');
+    const [country] = useState('NP');
     const [state, setState] = useState(shippingInfo.state);
     const [pincode, setPincode] = useState(shippingInfo.pincode);
     const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);

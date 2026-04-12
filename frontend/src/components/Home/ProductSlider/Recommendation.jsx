@@ -30,12 +30,12 @@ const Recommendation = ({ products }) => {
   }
 
   if (userError) {
-    console.error("Error fetching user:", userError);
+    // console.error("Error fetching user:", userError);
     return <div>Login to get recommendations</div>;
   }
 
   if (recommendedError) {
-    console.error("Error fetching recommendations:", recommendedError);
+    // console.error("Error fetching recommendations:", recommendedError);
     return <div className="hidden">Error fetching recommendations</div>;
   }
 
@@ -44,7 +44,7 @@ const Recommendation = ({ products }) => {
   }
 
   if (!recommended || recommended.length === 0) {
-    console.log("No recommendations available", user);
+    // console.log("No recommendations available", user);
     return <div>No recommendations available</div>;
   }
   const rProduct = products.filter((product) => {

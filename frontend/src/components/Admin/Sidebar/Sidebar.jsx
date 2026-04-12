@@ -56,7 +56,7 @@ const navMenu = [
     },
 ];
 
-const Sidebar = ({ activeTab, setToggleSidebar }) => {
+const Sidebar = ({ activeTab, isOpen = false, setToggleSidebar }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
@@ -71,9 +71,7 @@ const Sidebar = ({ activeTab, setToggleSidebar }) => {
 
     return (
         <div className="sidebar-container">
-            <br></br>
-            <br></br>
-            <aside className="sidebar z-10 sm:z-0 block min-h-screen fixed pb-14 max-h-screen w-3/4 sm:w-1/5 bg-gray-800 text-white overflow-x-hidden border-r">
+            <aside className={`sidebar fixed bottom-0 left-0 top-14 z-[9] flex w-72 max-w-[85vw] flex-col overflow-x-hidden overflow-y-auto border-r bg-gray-800 pb-14 text-white shadow-2xl transition-transform duration-300 md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}>
                 <div className="flex items-center gap-3 bg-gray-700 p-2 rounded-lg shadow-lg my-4 mx-3.5">
                     <Avatar
                         alt="Avatar"
@@ -83,7 +81,7 @@ const Sidebar = ({ activeTab, setToggleSidebar }) => {
                         <span className="font-medium text-lg">{user.name}</span>
                         <span className="text-gray-300 text-sm">{user.email}</span>
                     </div>
-                    <button onClick={() => setToggleSidebar(false)} className="sm:hidden bg-gray-800 ml-auto rounded-full w-10 h-10 flex items-center justify-center">
+                    <button onClick={() => setToggleSidebar?.(false)} className="md:hidden bg-gray-800 ml-auto rounded-full w-10 h-10 flex items-center justify-center" aria-label="Close sidebar">
                         <CloseIcon />
                     </button>
                 </div>
@@ -92,19 +90,23 @@ const Sidebar = ({ activeTab, setToggleSidebar }) => {
                     {navMenu.map((item, index) => {
                         const { icon, label, ref } = item;
                         return (
-                            <>
+                            <div key={ref || label}>
                                 {label === "Logout" ? (
-                                    <button onClick={handleLogout} className="hover:bg-gray-700 flex gap-3 items-center py-3 px-4 font-medium">
+                                    <button type="button" onClick={handleLogout} className="hover:bg-gray-700 flex gap-3 items-center py-3 px-4 font-medium">
                                         <span>{icon}</span>
                                         <span>{label}</span>
                                     </button>
                                 ) : (
-                                    <Link to={ref} className={`${activeTab === index ? "bg-gray-700" : "hover:bg-gray-700"} flex gap-3 items-center py-3 px-4 font-medium`}>
+                                    <Link
+                                        to={ref}
+                                        onClick={() => setToggleSidebar?.(false)}
+                                        className={`${activeTab === index ? "bg-gray-700" : "hover:bg-gray-700"} flex gap-3 items-center py-3 px-4 font-medium`}
+                                    >
                                         <span>{icon}</span>
                                         <span>{label}</span>
                                     </Link>
                                 )}
-                            </>
+                            </div>
                         );
                     })}
                 </div>
