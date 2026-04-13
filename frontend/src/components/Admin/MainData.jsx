@@ -1,11 +1,35 @@
 import { useEffect } from "react";
 import { Doughnut, Line, Pie, Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import { getAdminProducts } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllOrders } from "../../actions/orderAction";
 import { getAllUsers } from "../../actions/userAction";
 import { categories } from "../../utils/constants";
 import MetaData from "../Layouts/MetaData";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const MainData = () => {
   const dispatch = useDispatch();
