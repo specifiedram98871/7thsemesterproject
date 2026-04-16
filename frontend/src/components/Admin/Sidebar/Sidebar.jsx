@@ -56,7 +56,7 @@ const navMenu = [
     },
 ];
 
-const Sidebar = ({ activeTab, setToggleSidebar }) => {
+const Sidebar = ({ activeTab, isOpen = false, setToggleSidebar }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
@@ -71,7 +71,7 @@ const Sidebar = ({ activeTab, setToggleSidebar }) => {
 
     return (
         <div className="sidebar-container">
-            <aside className="sidebar fixed inset-y-0 left-0 z-50 flex h-screen w-72 max-w-[85vw] flex-col overflow-x-hidden overflow-y-auto border-r bg-gray-800 pb-14 text-white shadow-2xl md:z-10">
+            <aside className={`sidebar fixed bottom-0 left-0 top-14 z-[9] flex w-72 max-w-[85vw] flex-col overflow-x-hidden overflow-y-auto border-r bg-gray-800 pb-14 text-white shadow-2xl transition-transform duration-300 md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}>
                 <div className="flex items-center gap-3 bg-gray-700 p-2 rounded-lg shadow-lg my-4 mx-3.5">
                     <Avatar
                         alt="Avatar"
