@@ -71,7 +71,6 @@ describe("Registration functionality", () => {
                 cy.url().should("include", Cypress.env('frontendUrl'));  
             })
         })
-
     })
 
 })
