@@ -57,3 +57,13 @@ export const catNav = [
     },
 ]
 
+export const adminLabels = [
+  "Dashboard",
+  "Orders",
+  "Products",
+  "Add Product",
+  "Users",
+  "Reviews",
+  "My Profile",
+  "Logout"
+];
