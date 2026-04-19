@@ -1,0 +1,9 @@
+{
+    "adminEmail":"admin@gmail.com",
+    "adminPassword":"admin123",
+    "email":"flirtysec98871@gmail.com",
+    "password":"12345678",
+    "invalidEmail":"testgmailcom",
+    "invalidPassword":"1234567",
+    "wrongEmail":"abc@gmail.com"
+}
