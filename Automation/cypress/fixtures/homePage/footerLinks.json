@@ -1,0 +1,46 @@
+[
+  {
+    "label": "Contactus",
+    "link": "/contactus"
+  },
+  {
+    "label": "About Us",
+    "link": "/aboutus"
+  },
+  {
+    "label": "Careers",
+    "link": "/careers"
+  },
+  {
+    "label": "Press",
+    "link": "/press"
+  },
+  {
+    "label": "ShopEase Wholesale",
+    "link": "/shopeasewholesale"
+  },
+  {
+    "label": "FAQ",
+    "link": "/faq"
+  },
+  {
+    "label": "Return Policy",
+    "link": "/returnpolicy"
+  },
+  {
+    "label": "Security",
+    "link": "/security"
+  },
+  {
+    "label": "Privacy",
+    "link": "/privacy"
+  },
+  {
+    "label": "Sitemap",
+    "link": "/sitemap"
+  },
+  {
+    "label": "EPR Compliance",
+    "link": "/epr"
+  }
+]
