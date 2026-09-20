@@ -42,38 +42,46 @@ const Footer = () => {
     <>
       {!adminRoute && (
         <>
-          <footer className="mt-20 w-full py-1 sm:py-4 px-4 sm:px-12 bg-primary-darkBlue text-white text-xs border-b border-gray-600 flex flex-col sm:flex-row overflow-hidden">
-            <div className="w-full sm:w-7/12 flex flex-col sm:flex-row">
-              {footerLinks.map((el, i) => (
-                <div className="w-full sm:w-1/5 flex flex-col gap-2 my-3 sm:my-6 ml-5" key={i}>
-                  <h2 className="text-primary-green mb-2 uppercase">{el.title}</h2>
-                  {el.links.map((item, j) => (
-                    item.redirect.startsWith("http") ? (
-                      <a href={item.redirect} target="_blank" rel="noreferrer" className="hover:underline" key={j}>{item.name}</a>
-                    ) : (
-                      <Link to={item.redirect} className="hover:underline" key={j}>{item.name}</Link>
-                    )
+          <footer className="mt-20 w-full border-t border-white/60 bg-[#1f130f] text-white shadow-[0_-18px_55px_rgba(18,10,6,0.2)]">
+            <div className="site-shell py-12">
+              <div className="grid gap-8 lg:grid-cols-12">
+                <div className="lg:col-span-4">
+                  <p className="text-xs uppercase tracking-[0.3em] text-orange-200/90">Pizza House</p>
+                  <h2 className="mt-3 text-3xl font-semibold text-white">Crafted for slow dinners, fast cravings, and warm nights.</h2>
+                  <p className="mt-4 max-w-md text-sm leading-7 text-white/70">A calmer, cleaner storefront designed to keep the food, flavor, and ordering journey front and center.</p>
+                </div>
+
+                <div className="grid gap-8 sm:grid-cols-3 lg:col-span-5">
+                  {footerLinks.map((el, i) => (
+                    <div className="flex flex-col gap-3" key={i}>
+                      <h2 className="text-xs uppercase tracking-[0.28em] text-orange-200/90">{el.title}</h2>
+                      {el.links.map((item, j) => (
+                        item.redirect.startsWith("http") ? (
+                          <a href={item.redirect} target="_blank" rel="noreferrer" className="text-sm text-white/70 transition hover:text-white" key={j}>{item.name}</a>
+                        ) : (
+                          <Link to={item.redirect} className="text-sm text-white/70 transition hover:text-white" key={j}>{item.name}</Link>
+                        )
+                      ))}
+                    </div>
                   ))}
                 </div>
-              ))}
+
+                <div className="lg:col-span-3">
+                  <div className="rounded-[28px] border border-white/10 bg-white/6 p-6 backdrop-blur-sm">
+                    <h2 className="text-xs uppercase tracking-[0.28em] text-orange-200/90">Made by</h2>
+                    <p className="mt-4 leading-7 text-white/75">Ram Timalsina<br />
+                      Sanjay Tripathi<br />
+                      Sushant Pant<br />
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="border-gray-600 h-36 w-1 border-l mr-5 mt-6 hidden sm:block"></div>
-            <div className="w-full sm:w-5/12 my-6 mx-5 sm:mx-0 flex flex-col sm:flex-row gap-2 sm:gap-0 justify-between">
-              <div className="w-full sm:w-1/2">
-                <h2 className="text-primary-green">Made By:</h2>
-                <p className="mt-2 leading-5">Ram Timalsina<br />
-                  Sanjay Tripathi<br />
-                  Sushant Pant<br />
-                </p>
-              </div>
-
+            <div className="border-t border-white/10 bg-black/20 px-4 py-4 text-center text-sm text-white/70">
+              <span>&copy; 2020-{new Date().getFullYear()} Pizza House</span>
             </div>
           </footer>
-
-          <div className="px-16 py-6 w-full bg-primary-darkBlue hidden sm:flex justify-center items-center text-sm text-white text-center">
-            <span>&copy; 2020-{new Date().getFullYear()} ShopEase.com</span>
-          </div>
         </>
       )}
     </>

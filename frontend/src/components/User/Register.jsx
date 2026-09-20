@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import { useSnackbar } from "notistack";
@@ -33,27 +34,42 @@ const Register = () => {
 
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState("preview.png");
+  const [fieldErrors, setFieldErrors] = useState({});
+
+  const validateRegister = () => {
+    const errors = {};
+    const normalizedEmail = email.trim();
+
+    if (!name.trim()) errors.name = "Full name is required";
+    if (!normalizedEmail) {
+      errors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+      errors.email = "Enter a valid email address";
+    }
+    if (!gender) errors.gender = "Select your gender";
+    if (!password) {
+      errors.password = "Password is required";
+    } else if (password.length < 8) {
+      errors.password = "Password must be at least 8 characters";
+    }
+    if (!cpassword) {
+      errors.cpassword = "Confirm your password";
+    } else if (password !== cpassword) {
+      errors.cpassword = "Passwords do not match";
+    }
+    if (!avatar) errors.avatar = "Choose an avatar";
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleRegister = (e) => {
     e.preventDefault();
-    if (password.length < 8) {
-      enqueueSnackbar("Password length must be atleast 8 characters", {
-        variant: "warning",
-      });
-      return;
-    }
-    if (password !== cpassword) {
-      enqueueSnackbar("Password Doesn't Match", { variant: "error" });
-      return;
-    }
-    if (!avatar) {
-      enqueueSnackbar("Select Avatar", { variant: "error" });
-      return;
-    }
+    if (!validateRegister()) return;
 
     const formData = new FormData();
     formData.set("name", name);
-    formData.set("email", email);
+    formData.set("email", email.trim());
     formData.set("gender", gender);
     formData.set("password", password);
     formData.set("avatar", avatar);
@@ -63,18 +79,21 @@ const Register = () => {
 
   const handleDataChange = (e) => {
     if (e.target.name === "avatar") {
+      if (!e.target.files[0]) return;
       const reader = new FileReader();
 
       reader.onload = () => {
         if (reader.readyState === 2) {
           setAvatarPreview(reader.result);
           setAvatar(reader.result);
+          setFieldErrors((errors) => ({ ...errors, avatar: "" }));
         }
       };
 
       reader.readAsDataURL(e.target.files[0]);
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
+      setFieldErrors((errors) => ({ ...errors, [e.target.name]: "" }));
     }
   };
 
@@ -107,6 +126,7 @@ const Register = () => {
             <form
               onSubmit={handleRegister}
               encType="multipart/form-data"
+              noValidate
               className="p-5 sm:p-10"
             >
               <div className="flex flex-col gap-4 items-start">
@@ -119,7 +139,8 @@ const Register = () => {
                     name="name"
                     value={name}
                     onChange={handleDataChange}
-                    required
+                    error={Boolean(fieldErrors.name)}
+                    helperText={fieldErrors.name}
                   />
                   <TextField
                     fullWidth
@@ -129,7 +150,8 @@ const Register = () => {
                     name="email"
                     value={email}
                     onChange={handleDataChange}
-                    required
+                    error={Boolean(fieldErrors.email)}
+                    helperText={fieldErrors.email}
                   />
                 </div>
                 {/* <!-- input container column --> */}
@@ -137,7 +159,7 @@ const Register = () => {
                 {/* <!-- gender input --> */}
                 <div className="flex gap-4 items-center">
                   <h2 className="text-md">Your Gender :</h2>
-                  <div className="flex items-center gap-6" id="radioInput">
+                  <div className="flex flex-col items-start gap-1" id="radioInput">
                     <RadioGroup
                       row
                       aria-labelledby="radio-buttons-group-label"
@@ -147,17 +169,18 @@ const Register = () => {
                         name="gender"
                         value="male"
                         onChange={handleDataChange}
-                        control={<Radio required />}
+                        control={<Radio />}
                         label="Male"
                       />
                       <FormControlLabel
                         name="gender"
                         value="female"
                         onChange={handleDataChange}
-                        control={<Radio required />}
+                        control={<Radio />}
                         label="Female"
                       />
                     </RadioGroup>
+                    {fieldErrors.gender && <FormHelperText error>{fieldErrors.gender}</FormHelperText>}
                   </div>
                 </div>
                 {/* <!-- gender input --> */}
@@ -171,7 +194,8 @@ const Register = () => {
                     name="password"
                     value={password}
                     onChange={handleDataChange}
-                    required
+                    error={Boolean(fieldErrors.password)}
+                    helperText={fieldErrors.password}
                   />
                   <TextField
                     id="confirm-password"
@@ -180,7 +204,8 @@ const Register = () => {
                     name="cpassword"
                     value={cpassword}
                     onChange={handleDataChange}
-                    required
+                    error={Boolean(fieldErrors.cpassword)}
+                    helperText={fieldErrors.cpassword}
                   />
                 </div>
                 {/* <!-- input container column --> */}
@@ -191,7 +216,7 @@ const Register = () => {
                     src={avatarPreview}
                     sx={{ width: 56, height: 56 }}
                   />
-                  <label className="rounded font-medium bg-gray-400 text-center cursor-pointer text-white w-full py-2 px-2.5 shadow hover:shadow-lg">
+                  <label className={`rounded font-medium text-center cursor-pointer text-white w-full py-2 px-2.5 shadow hover:shadow-lg ${fieldErrors.avatar ? "bg-red-500" : "bg-gray-400"}`}>
                     <input
                       type="file"
                       name="avatar"
@@ -201,6 +226,7 @@ const Register = () => {
                     />
                     Choose File
                   </label>
+                  {fieldErrors.avatar && <FormHelperText error>{fieldErrors.avatar}</FormHelperText>}
                 </div>
                 <button
                   type="submit"

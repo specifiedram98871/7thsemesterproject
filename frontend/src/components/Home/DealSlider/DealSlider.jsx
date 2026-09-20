@@ -42,22 +42,20 @@ export const settings = {
 
 const DealSlider = ({ title }) => {
     return (
-        <section className="bg-white w-full shadow overflow-hidden">
-            {/* <!-- header --> */}
-            <div className="flex px-6 py-3 justify-between items-center">
-                <h1 className="text-xl font-medium">{title}</h1>
-                <Link to={`/products?category=${title}`} className="bg-primary-green text-xs font-medium text-white px-5 py-2.5 rounded-sm shadow-lg">VIEW ALL</Link>
+        <section className="warm-card overflow-hidden">
+            <div className="flex items-center justify-between gap-4 border-b border-[#f0dfcf] px-5 py-4 sm:px-6">
+                <div>
+                    <p className="text-xs uppercase tracking-[0.28em] text-[#c2410c]">Limited time</p>
+                    <h1 className="text-2xl font-semibold text-[#22170f]">{title}</h1>
+                </div>
+                <Link to={`/products?category=${title}`} className="rounded-full bg-[#22170f] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_12px_25px_rgba(34,23,15,0.18)] transition hover:-translate-y-0.5 hover:bg-[#c2410c]">View all</Link>
             </div>
-            <hr />
-            {/* <!-- header --> */}
 
-                <Slider {...settings}>
-                    {getRandomProducts(offerProducts, 12).map((item, i) => (
-                       
-                       <Product {...item} key={i}/>
-                    ))}
-                </Slider>
-
+            <Slider {...settings} className="px-1 py-2">
+                {getRandomProducts(offerProducts, 12).map((item, i) => (
+                   <Product {...item} key={i}/>
+                ))}
+            </Slider>
         </section>
     );
 };

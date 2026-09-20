@@ -16,10 +16,10 @@ const Header = () => {
   const [togglePrimaryDropDown, setTogglePrimaryDropDown] = useState(false);
 
   return (
-    <header className="bg-primary-green fixed top-0 py-2.5 w-full z-10">
-      <div className="w-full sm:w-9/12 px-1 sm:px-4 m-auto flex justify-between items-center relative">
-        <div className="flex items-center flex-1">
-          <Link className="h-12 mr-1 sm:mr-4" to="/">
+    <header className="sticky h-24 top-0 z-20 w-full border-b border-white/20 bg-[#1f130f]/88 backdrop-blur-xl shadow-[0_14px_40px_rgba(31,19,15,0.25)]">
+      <div className="site-shell flex items-center justify-between gap-3 py-3">
+        <div className="flex min-w-0 flex-1 items-center gap-3">
+          <Link className="pb-1  bg-green-500 items-center justify-center rounded-2xl " to="/">
             <img
               draggable="false"
               className="h-full w-full object-contain"
@@ -27,22 +27,26 @@ const Header = () => {
               alt="ShopEase Logo"
             />
           </Link>
-          <Searchbar />
+          
+          <div className="flex-1 min-w-0 max-w-2xl">
+            <Searchbar />
+          </div>
         </div>
-        <div className="flex items-center justify-between ml-1 sm:ml-0 gap-0.5 sm:gap-7 relative">
+        <div className="flex items-center gap-2 sm:gap-3 relative">
           {isAuthenticated === false ? (
             <Link
               to="/login"
-              className="px-3 sm:px-9 py-0.5 text-primary-green bg-white border font-medium rounded-sm cursor-pointer"
+              className="pill-button-primary text-black-500 whitespace-nowrap border-white/20 text-xs sm:text-sm"
             >
               Login
             </Link>
           ) : (
-            <span
-              className="userDropDown flex items-center text-white font-medium gap-1 cursor-pointer"
+            <button
+              type="button"
+              className="flex items-center gap-2 rounded-full border border-white/15  px-4 py-2 text-green-400 text-sm font-medium text-green-500 transition hover:bg-green-500 hover:text-white"
               onClick={() => setTogglePrimaryDropDown(!togglePrimaryDropDown)}
             >
-              {user && user.name && user.name.split(" ", 1)}
+              <span className="hidden my-auto sm:inline mx-auto">{user && user.name && user.name.split(" ", 1)}</span>
               <span>
                 {togglePrimaryDropDown ? (
                   <ExpandLessIcon sx={{ fontSize: "16px" }} />
@@ -50,7 +54,7 @@ const Header = () => {
                   <ExpandMoreIcon sx={{ fontSize: "16px" }} />
                 )}
               </span>
-            </span>
+            </button>
           )}
           {togglePrimaryDropDown && (
             <PrimaryDropDownMenu
@@ -60,17 +64,17 @@ const Header = () => {
           )}
           <Link
             to="/cart"
-            className="flex items-center text-white font-medium gap-2 relative"
+            className="pill-button-primary-green hover:bg-green-500 relative gap-2 whitespace-nowrap"
           >
             <span>
               <ShoppingCartIcon />
             </span>
+            <span className="hidden sm:inline">Cart</span>
             {cartItems.length > 0 && (
-              <div className="w-5 h-5 p-2 bg-red-500 text-xs rounded-full absolute -top-2 left-3 flex justify-center items-center border">
+              <div className="absolute -right-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-full border border-white bg-amber-400 px-1 text-xs font-bold text-[#22170f]">
                 {cartItems.length}
               </div>
             )}
-            Cart
           </Link>
         </div>
       </div>

@@ -26,16 +26,16 @@ module.exports = {
       pink: colors.pink,
       // custom colors
       primary: {
-        blue: "#2874f0",
-        lightGreen: "#14be47",
-        green: "#388e3c",
-        lGreen: "#a3e635",
-        yellow: "#ff9f00",
-        buttonGreen: "#298321",
-        darkBlue: "#172337",
-        darkZinc: "#27272a",
-        darkerZinc: "#18181b",
-        grey: "#298321",
+        blue: "#7c2d12",
+        lightGreen: "#f59e0b",
+        green: "#2f6b3d",
+        lGreen: "#fbbf24",
+        yellow: "#d97706",
+        buttonGreen: "#c2410c",
+        darkBlue: "#1f130f",
+        darkZinc: "#2f241f",
+        darkerZinc: "#17120f",
+        grey: "#8b5a2b",
       },
     },
     spacing: {
@@ -259,6 +259,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
+        '"Poppins"',
         "ui-sans-serif",
         "system-ui",
         "-apple-system",
@@ -269,12 +270,9 @@ module.exports = {
         "Arial",
         '"Noto Sans"',
         "sans-serif",
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-        '"Noto Color Emoji"',
       ],
       serif: [
+        '"Playfair Display"',
         "ui-serif",
         "Georgia",
         "Cambria",

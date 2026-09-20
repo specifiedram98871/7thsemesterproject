@@ -1,8 +1,12 @@
 import { Step, StepLabel, Stepper } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
-import { formatDate } from '../../utils/functions';
+import { formatDate, getCanonicalOrderStatus, getFinalOrderStatus } from '../../utils/functions';
 
-const TrackStepper = ({ activeStep, orderOn, shippedAt, deliveredAt }) => {
+const TrackStepper = ({ orderStatus, orderType, orderOn, deliveredAt }) => {
+
+    const normalizedStatus = getCanonicalOrderStatus(orderStatus, orderType);
+    const finalStatus = getFinalOrderStatus(orderType);
+    const activeStep = normalizedStatus === "Processing" ? 1 : normalizedStatus === finalStatus ? 2 : 0;
 
     const steps = [
         {
@@ -10,11 +14,11 @@ const TrackStepper = ({ activeStep, orderOn, shippedAt, deliveredAt }) => {
             dt: formatDate(orderOn),
         },
         {
-            status: "Shipped",
-            dt: formatDate(shippedAt),
+            status: "Processing",
+            dt: "",
         },
         {
-            status: "Delivered",
+            status: finalStatus,
             dt: formatDate(deliveredAt),
         },
     ];

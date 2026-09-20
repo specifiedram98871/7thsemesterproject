@@ -46,19 +46,30 @@ const catNav = [
 
 const Categories = () => {
     return (
-        <section className="hidden sm:block bg-white mt-10 mb-4 min-w-full px-12 py-1 shadow overflow-hidden">
-
-            <div className="flex items-center justify-between mt-4">
-
-                {catNav.map((item, i) => (
-                    <Link to={`/products?category=${item.name}`} className="flex flex-col gap-1 items-center p-2 group" key={i}>
-                        <div className="h-16 w-16">
-                            <img draggable="false" className="h-full w-full object-contain" src={item.icon} alt={item.name} />
+        <section className="hidden sm:block pt-6">
+            <div className="site-shell">
+                <div className="warm-card overflow-hidden px-4 py-4 sm:px-6">
+                    <div className="my-4 flex items-center justify-between">
+                        <div>
+                            <p className="text-xs uppercase tracking-[0.28em] text-[#c2410c]">Explore the menu</p>
+                            <h2 className="text-2xl font-semibold text-[#22170f]">Crowd favorites, baked fresh</h2>
                         </div>
-                        <span className="text-sm text-gray-800 font-medium group-hover:text-primary-green">{item.name}</span>
-                    </Link>
-                ))}
+                        <Link to="/products" className="rounded-full border border-[#edd9c7] bg-[#fff5eb] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#8b5a2b] transition hover:bg-[#f7e8d8]">
+                            See all
+                        </Link>
+                    </div>
 
+                    <div className="grid grid-cols-8 gap-3">
+                        {catNav.map((item, i) => (
+                            <Link to={`/products?category=${item.name}`} className="group flex flex-col items-center gap-2 rounded-[22px] border border-[#f1dfcf] bg-white/80 px-3 py-4 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#c2410c]/30 hover:shadow-lg" key={i}>
+                                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#fff1e5] to-[#ffe0c4] p-2 ring-1 ring-white/80">
+                                    <img draggable="false" className="h-full w-full object-contain" src={item.icon} alt={item.name} />
+                                </div>
+                                <span className="text-sm font-medium text-[#3a2418] transition group-hover:text-[#c2410c]">{item.name}</span>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
             </div>
         </section>
     );

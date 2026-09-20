@@ -42,10 +42,17 @@ export const getProducts =
     try {
       dispatch({ type: ALL_PRODUCTS_REQUEST });
 
-      let url = `${process.env.REACT_APP_BACK_URL}/api/v1/products?keyword=${keyword}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&page=${currentPage}`;
-      if (category) {
-        url = `${process.env.REACT_APP_BACK_URL}/api/v1/products?keyword=${keyword}&category=${category}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&page=${currentPage}`;
-      }
+      const queryParams = new URLSearchParams({
+        keyword,
+        "price[gte]": price[0],
+        "price[lte]": price[1],
+        "ratings[gte]": ratings,
+        page: currentPage,
+      });
+
+      if (category) queryParams.set("category", category.trim());
+
+      const url = `${process.env.REACT_APP_BACK_URL}/api/v1/products?${queryParams.toString()}`;
       const { data } = await axios.get(url, { withCredentials: true }); // Allow cookies
 
       dispatch({

@@ -7,6 +7,9 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+import PersonIcon from '@mui/icons-material/Person';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import CloseIcon from '@mui/icons-material/Close';
 import Avatar from '@mui/material/Avatar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +19,11 @@ import { logoutUser } from '../../../actions/userAction';
 
 const navMenu = [
     {
+        icon: <RestaurantMenuIcon />,
+        label: "Kitchen",
+        ref: "/admin/kitchen",
+    },
+    {
         icon: <EqualizerIcon />,
         label: "Dashboard",
         ref: "/admin/dashboard",
@@ -24,6 +32,11 @@ const navMenu = [
         icon: <ShoppingBagIcon />,
         label: "Orders",
         ref: "/admin/orders",
+    },
+    {
+        icon: <PersonIcon />,
+        label: "Waiter Orders",
+        ref: "/admin/waiter-orders",
     },
     {
         icon: <InventoryIcon />,
@@ -44,6 +57,11 @@ const navMenu = [
         icon: <ReviewsIcon />,
         label: "Reviews",
         ref: "/admin/reviews",
+    },
+    {
+        icon: <LocalShippingIcon />,
+        label: "Delivery Partners",
+        ref: "/admin/delivery-partners",
     },
     {
         icon: <AccountBoxIcon />,

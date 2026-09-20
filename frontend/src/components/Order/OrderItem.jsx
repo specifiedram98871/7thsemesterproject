@@ -1,11 +1,13 @@
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CircleIcon from '@mui/icons-material/Circle';
 import { Link } from 'react-router-dom';
-import { formatDate } from '../../utils/functions';
+import { formatDate, getCanonicalOrderStatus, getFinalOrderStatus } from '../../utils/functions';
 
 const OrderItem = (props) => {
 
-    const { orderId, name, image, price, quantity, createdAt, deliveredAt, orderStatus } = props;
+    const { orderId, name, image, price, quantity, createdAt, deliveredAt, orderStatus, orderType } = props;
+    const normalizedStatus = getCanonicalOrderStatus(orderStatus, orderType);
+    const finalStatus = getFinalOrderStatus(orderType);
 
     return (
         <Link to={`/order_details/${orderId}`} className="flex p-4 items-start bg-white border rounded gap-2 sm:gap-0 hover:shadow-lg">
@@ -29,19 +31,19 @@ const OrderItem = (props) => {
 
                     <div className="flex flex-col gap-1.5">
                         <p className="text-sm font-medium flex items-center gap-1">
-                            {orderStatus === "Shipped" ? (
+                            {normalizedStatus === "Processing" ? (
                                 <>
                                     <span className="text-primary-buttonGreen pb-0.5">
                                         <CircleIcon sx={{ fontSize: "14px" }} />
                                     </span>
-                                    Shipped
+                                    Processing
                                 </>
-                            ) : orderStatus === "Delivered" ? (
+                            ) : normalizedStatus === finalStatus ? (
                                 <>
                                     <span className="text-primary-green pb-0.5">
                                         <CircleIcon sx={{ fontSize: "14px" }} />
                                     </span>
-                                    Delivered on {formatDate(deliveredAt)}
+                                    {finalStatus} on {formatDate(deliveredAt)}
                                 </>
                             ) : (
                                 <>
@@ -52,10 +54,10 @@ const OrderItem = (props) => {
                                 </>
                             )}
                         </p>
-                        {orderStatus === "Delivered" ?
-                            <p className="text-xs ml-1">Your item has been {orderStatus}</p>
-                            : orderStatus === "Shipped" ?
-                                <p className="text-xs ml-1">Your item has been {orderStatus}</p> :
+                        {normalizedStatus === finalStatus ?
+                            <p className="text-xs ml-1">Your item has been {finalStatus}</p>
+                            : normalizedStatus === "Processing" ?
+                                <p className="text-xs ml-1">Your item is being prepared</p> :
                                 <p className="text-xs ml-1">Seller has processed your order</p>
                         }
                     </div>
