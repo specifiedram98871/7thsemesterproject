@@ -129,98 +129,89 @@ const ProductDetails = () => {
                 <>
                     <MetaData title={product.name} />
                     <MinCategory />
-                    <main className="mt-12 sm:mt-0">
+                    <main className="site-shell mt-6 pb-16 sm:mt-8">
 
                         {/* <!-- product image & description container --> */}
-                        <div className="w-full flex flex-col sm:flex-row bg-white sm:p-2 relative">
+                        <div className="overflow-hidden rounded-[32px] border border-[#f0dfcf] bg-white shadow-[0_24px_60px_rgba(80,45,18,0.1)]">
 
                             {/* <!-- image wrapper --> */}
-                            <div className="w-full sm:w-2/5 sm:sticky top-16 sm:h-screen">
-                                {/* <!-- imgbox --> */}
-                                <div className="flex flex-col gap-3 m-3">
-                                    <div className="w-full h-full pb-6 border relative">
-                                        <Slider {...settings}>
-                                            {product.images && product.images.map((item, i) => (
-                                                <img draggable="false" className="w-full h-96 object-contain" src={item.url} alt={product.name} key={i} />
-                                            ))}
-                                        </Slider>
-                                        <div className="absolute top-4 right-4 shadow-lg bg-white w-9 h-9 border flex items-center justify-center rounded-full">
-                                            <span onClick={addToWishlistHandler} className={`${itemInWishlist ? "text-red-500" : "hover:text-red-500 text-gray-300"} cursor-pointer`}><FavoriteIcon sx={{ fontSize: "18px" }} /></span>
+                            <div className="grid gap-0 lg:grid-cols-12">
+                                <div className="bg-[#fff8f1] p-4 lg:col-span-5 lg:sticky lg:top-24 lg:h-[calc(100vh-6rem)]">
+                                    <div className="flex h-full flex-col gap-4 rounded-[28px] bg-white p-4 shadow-sm">
+                                        <div className="relative overflow-hidden rounded-[24px] border border-[#f0dfcf] bg-gradient-to-br from-[#fff4e9] to-[#ffe0c4]">
+                                            <Slider {...settings}>
+                                                {product.images && product.images.map((item, i) => (
+                                                    <img draggable="false" className="h-[22rem] w-full object-contain p-4 sm:h-[28rem]" src={item.url} alt={product.name} key={i} />
+                                                ))}
+                                            </Slider>
+                                            <div className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-white/70 bg-white/90 shadow-lg">
+                                                <span onClick={addToWishlistHandler} className={`${itemInWishlist ? "text-red-500" : "text-gray-300 hover:text-red-500"} cursor-pointer`}><FavoriteIcon sx={{ fontSize: "18px" }} /></span>
+                                            </div>
+                                        </div>
+
+                                        <div className="grid gap-3 sm:grid-cols-2">
+                                            {product.stock > 0 && (
+                                                <button onClick={itemInCart ? goToCart : addToCartHandler} className="pill-button-secondary border-[#edd9c7] bg-[#fff5eb] text-[#3a2418] hover:bg-[#f7e8d8]">
+                                                    <ShoppingCartIcon />
+                                                    {itemInCart ? "Go to cart" : "Add to cart"}
+                                                </button>
+                                            )}
+                                            <button onClick={buyNow} disabled={product.stock < 1 ? true : false} className={product.stock < 1 ? "pill-button bg-red-500 text-white cursor-not-allowed" : "pill-button-primary"}>
+                                                <FlashOnIcon />
+                                                {product.stock < 1 ? "Out of stock" : "Buy now"}
+                                            </button>
                                         </div>
                                     </div>
-
-                                    <div className="w-full flex gap-3">
-                                        {/* <!-- add to cart btn --> */}
-                                        {product.stock > 0 && (
-                                            <button onClick={itemInCart ? goToCart : addToCartHandler} className="p-4 w-1/2 flex items-center justify-center gap-2 text-white bg-primary-lGreen rounded-sm shadow hover:shadow-lg">
-                                                <ShoppingCartIcon />
-                                                {itemInCart ? "GO TO CART" : "ADD TO CART"}
-                                            </button>
-                                        )}
-                                        <button onClick={buyNow} disabled={product.stock < 1 ? true : false} className={product.stock < 1 ? "p-4 w-full flex items-center justify-center gap-2 text-white bg-red-600 cursor-not-allowed rounded-sm shadow hover:shadow-lg" : "p-4 w-1/2 flex items-center justify-center gap-2 text-white bg-primary-buttonGreen rounded-sm shadow hover:shadow-lg"}>
-                                            <FlashOnIcon />
-                                            {product.stock < 1 ? "OUT OF STOCK" : "BUY NOW"}
-                                        </button>
-                                        {/* <!-- add to cart btn --> */}
-                                    </div>
-
                                 </div>
-                                {/* <!-- imgbox --> */}
-                            </div>
-                            {/* <!-- image wrapper --> */}
 
                             {/* <!-- product desc wrapper --> */}
-                            <div className="flex-1 py-2 px-3">
+                            <div className="lg:col-span-7 px-5 py-6 sm:px-8 sm:py-8">
 
                                 {/* <!-- whole product description --> */}
-                                <div className="flex flex-col gap-2 mb-4">
+                                <div className="flex flex-col gap-4">
 
-                                    <h2 className="text-xl">{product.name}</h2>
+                                    <div className="space-y-3">
+                                        <p className="text-xs uppercase tracking-[0.28em] text-[#c2410c]">Pizza House Special</p>
+                                        <h2 className="text-3xl font-semibold text-[#22170f] sm:text-4xl">{product.name}</h2>
+                                    </div>
                                     {/* <!-- rating badge --> */}
-                                    <span className="text-sm text-gray-500 font-medium flex gap-2 items-center">
-                                        <span className="text-xs px-1.5 py-0.5 bg-primary-green rounded-sm text-white flex items-center gap-0.5">{product.ratings && product.ratings.toFixed(1)} <StarIcon sx={{ fontSize: "12px" }} /></span>
-                                        <span>{product.numOfReviews} Reviews</span>
+                                    <span className="flex items-center gap-2 text-sm font-medium text-[#8b5a2b]">
+                                        <span className="inline-flex items-center gap-0.5 rounded-full bg-[#22170f] px-2.5 py-1 text-xs font-semibold text-white">{product.ratings && product.ratings.toFixed(1)} <StarIcon sx={{ fontSize: "12px" }} /></span>
+                                        <span>{product.numOfReviews} reviews</span>
                                     </span>
                                     {/* <!-- rating badge --> */}
 
-                                    {/* <!-- price desc --> */}
-                                    <span className="text-primary-green text-sm font-medium">Special Price</span>
-                                    <div className="flex items-baseline gap-2 text-3xl font-medium">
-                                        <span className="text-gray-800">Rs.{product.price?.toLocaleString()}</span>
-                                        <span className="text-base text-gray-500 line-through">Rs.{product.cuttedPrice?.toLocaleString()}</span>
-                                        <span className="text-base text-primary-green">{getDiscount(product.price, product.cuttedPrice)}%&nbsp;off</span>
+                                    <div className="rounded-[28px] bg-[#fff7ef] p-5 shadow-sm">
+                                        <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#c2410c]">Special price</span>
+                                        <div className="mt-2 flex flex-wrap items-baseline gap-3">
+                                            <span className="text-4xl font-semibold text-[#22170f]">Rs.{product.price?.toLocaleString()}</span>
+                                            <span className="text-base text-[#8b5a2b] line-through">Rs.{product.cuttedPrice?.toLocaleString()}</span>
+                                            <span className="rounded-full bg-[#22170f] px-3 py-1 text-sm font-semibold text-white">{getDiscount(product.price, product.cuttedPrice)}% off</span>
+                                        </div>
+                                        {product.stock <= 10 && product.stock > 0 && (
+                                            <span className="mt-3 inline-flex rounded-full bg-red-100 px-3 py-1 text-sm font-medium text-red-600">Hurry, only {product.stock} left!</span>
+                                        )}
                                     </div>
-                                    {product.stock <= 10 && product.stock > 0 && (
-                                        <span className="text-red-500 text-sm font-medium">Hurry, Only {product.stock} left!</span>
-                                    )}
-                                    {/* <!-- price desc --> */}
 
-                                    {/* <!-- banks offers --> */}
-                                    
-                                   
-                                    {/* <!-- banks offers --> */}
-
-                                    {/* <!-- warranty & brand --> */}
-                                    <div className="flex gap-8 mt-2 items-center text-sm">
-                                        <img draggable="false" className="w-20 h-8 p-0.5 border object-contain" src={product.brand?.logo.url} alt={product.brand && product.brand.name} />
-                                        <span>Best Before: {product.warranty}  Month(s)</span>
+                                    <div className="grid gap-4 rounded-[28px] border border-[#f0dfcf] bg-white p-5 sm:grid-cols-2">
+                                        <div className="flex gap-4 text-sm">
+                                            <p className="min-w-24 text-[#8b5a2b] font-medium">Best before</p>
+                                            <div className="flex-1">
+                                                <img draggable="false" className="h-8 w-20 rounded border border-[#f0dfcf] object-contain p-0.5" src={product.brand?.logo.url} alt={product.brand && product.brand.name} />
+                                                <span className="mt-2 block text-[#3a2418]">{product.warranty} month(s)</span>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-4 text-sm">
+                                            <p className="min-w-24 text-[#8b5a2b] font-medium">Delivery</p>
+                                            <span className="text-[#3a2418]">By {getDeliveryDate()}</span>
+                                        </div>
                                     </div>
-                                    {/* <!-- warranty & brand --> */}
 
-                                    {/* <!-- delivery details --> */}
-                                    <div className="flex gap-16 mt-4 items-center text-sm font-medium">
-                                        <p className="text-gray-500">Delivery</p>
-                                        <span>Delivery by {getDeliveryDate()}</span>
-                                    </div>
-                                    {/* <!-- delivery details --> */}
+                                    <div className="grid gap-4 rounded-[28px] border border-[#f0dfcf] bg-white p-5 lg:grid-cols-2">
+                                        <div className="flex gap-4 text-sm">
+                                            <p className="min-w-24 text-[#8b5a2b] font-medium">Highlights</p>
 
-                                    {/* <!-- highlights & services details --> */}
-                                    <div className="flex flex-col sm:flex-row justify-between">
-                                        {/* <!-- highlights details --> */}
-                                        <div className="flex gap-16 mt-4 items-stretch text-sm">
-                                            <p className="text-gray-500 font-medium">Highlights</p>
-
-                                            <ul className="list-disc flex flex-col gap-2 w-64">
+                                            <ul className="flex flex-col gap-2 text-[#3a2418]">
                                                 {product.highlights?.map((highlight, i) => (
                                                     <li key={i}>
                                                         <p>{highlight}</p>
@@ -228,36 +219,27 @@ const ProductDetails = () => {
                                                 ))}
                                             </ul>
                                         </div>
-                                        {/* <!-- highlights details --> */}
 
-                                        {/* <!-- services details --> */}
-                                        <div className="flex gap-16 mt-4 mr-6 items-stretch text-sm">
-                                            <p className="text-gray-500 font-medium">Services</p>
-                                            <ul className="flex flex-col gap-2">
+                                        <div className="flex gap-4 text-sm">
+                                            <p className="min-w-24 text-[#8b5a2b] font-medium">Services</p>
+                                            <ul className="flex flex-col gap-2 text-[#3a2418]">
                                                 <li>
-                                                    <p className="flex items-center gap-3"><span className="text-primary-green"><VerifiedUserIcon sx={{ fontSize: "18px" }} /></span>Expires in {product.warranty} Month(s)</p>
+                                                    <p className="flex items-center gap-3"><span className="text-[#c2410c]"><VerifiedUserIcon sx={{ fontSize: "18px" }} /></span>Expires in {product.warranty} month(s)</p>
                                                 </li>
                                                 <li>
-                                                    <p className="flex items-center gap-3"><span className="text-primary-green"><CachedIcon sx={{ fontSize: "18px" }} /></span> 7 Days Replacement Policy</p>
+                                                    <p className="flex items-center gap-3"><span className="text-[#c2410c]"><CachedIcon sx={{ fontSize: "18px" }} /></span> 7 Days Replacement Policy</p>
                                                 </li>
-                                                
                                             </ul>
                                         </div>
-                                        {/* <!-- services details --> */}
                                     </div>
-                                    {/* <!-- highlights & services details --> */}
 
-                                    {/* <!-- seller details --> */}
-                                    <div className="flex gap-16 mt-4 items-center text-sm font-medium">
-                                        <p className="text-gray-500">Seller</p>
-                                        <Link className="font-medium text-primary-green ml-3" to="/">{product.brand && product.brand.name}</Link>
+                                    <div className="flex gap-4 rounded-[28px] border border-[#f0dfcf] bg-[#fff7ef] p-5 text-sm font-medium">
+                                        <p className="text-[#8b5a2b]">Seller</p>
+                                        <Link className="font-semibold text-[#c2410c]" to="/">{product.brand && product.brand.name}</Link>
                                     </div>
-                                    {/* <!-- seller details --> */}
 
-                                    
-                                    {/* <!-- description details --> */}
-                                    <div className="flex flex-col sm:flex-row gap-1 sm:gap-14 mt-4 items-stretch text-sm">
-                                        <p className="text-gray-500 font-medium">Description</p>
+                                    <div className="rounded-[28px] border border-[#f0dfcf] bg-white p-5 text-sm leading-7 text-[#3a2418]">
+                                        <p className="mb-3 text-xs uppercase tracking-[0.24em] text-[#c2410c]">Description</p>
                                         <span>{product.description}</span>
                                     </div>
                                     {/* <!-- description details --> */}
@@ -271,22 +253,7 @@ const ProductDetails = () => {
                                     </div>
                                     {/* <!-- border box --> */}
 
-                                    {/* <!-- specifications border box --> */}
-                                    {/* <div className="w-full mt-4 pb-4 rounded-sm border flex flex-col">
-                                        <h1 className="px-6 py-4 border-b text-2xl font-medium">Specifications</h1>
-                                        <h1 className="px-6 py-3 text-lg">General</h1>
-
-                                        {/* <!-- specs list --> */}
-                                        {/* {product.specifications?.map((spec, i) => (
-                                            <div className="px-6 py-2 flex items-center text-sm" key={i}>
-                                                <p className="text-gray-500 w-3/12">{spec.title}</p>
-                                                <p className="flex-1">{spec.description}</p>
-                                            </div>
-                                        ))} */}
-                                        {/* <!-- specs list --> */}
-
-                                        {/* </div>  */}
-                                    {/* <!-- specifications border box --> */}
+                                    {/* specifications section removed */}
 
                                     {/* <!-- reviews border box --> */}
                                     <div className="w-full mt-4 rounded-sm border flex flex-col">
@@ -358,6 +325,7 @@ const ProductDetails = () => {
                             </div>
                             {/* <!-- product desc wrapper --> */}
 
+                        </div>
                         </div>
                         {/* <!-- product image & description container --> */}
 

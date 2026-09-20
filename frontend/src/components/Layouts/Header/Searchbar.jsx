@@ -1,25 +1,46 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Searchbar = () => {
 
     const [keyword, setKeyword] = useState("");
+    const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      setKeyword("");
+    }, [pathname]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(keyword.trim()){
-            navigate(`/products/${keyword}`)
-        } else {
-            navigate('/products');
+        const trimmedKeyword = keyword.trim();
+        if (!trimmedKeyword) {
+          enqueueSnackbar('Enter something to search', { variant: 'warning' });
+          return;
         }
+
+        navigate(`/products/${encodeURIComponent(trimmedKeyword)}`);
     }
 
     return (
-        <form onSubmit={handleSubmit} className="w-full sm:w-9/12 px-1 sm:px-4 py-1.5 flex justify-between items-center shadow-md bg-white rounded-sm overflow-hidden">
-            <input value={keyword} onChange={(e) => setKeyword(e.target.value)} className="text-sm flex-1 outline-none border-none placeholder-gray-500" type="text" placeholder="Search for products, brands and more" />
-            <button type="submit" className="text-primary-green"><SearchIcon /></button>
+        <form
+          onSubmit={handleSubmit}
+          className="flex items-center gap-2 rounded-full border border-white/15 bg-white/12 px-4 py-2 shadow-[0_10px_35px_rgba(0,0,0,0.18)] backdrop-blur-md"
+        >
+            <SearchIcon className="text-orange-200" />
+            <input
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              className="min-w-0 flex-1 bg-transparent text-sm text-black outline-none placeholder:text-black/30"
+              type="text"
+              placeholder="Search pizzas, sides, drinks and more"
+            />
+            <button type="submit" className="rounded-full bg-[#c2410c] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#a63d13]">
+              Search
+            </button>
         </form>
     );
 };

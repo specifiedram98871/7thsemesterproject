@@ -57,6 +57,9 @@ const orderSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
+    customerName: {
+        type: String,
+    },
     paymentInfo: {
         id: {
             type: String,
@@ -80,6 +83,40 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: "Processing",
+    },
+    // Admin acceptance workflow
+    isAccepted: {
+        type: Boolean,
+        default: false,
+    },
+    acceptedBy: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+    },
+    acceptedAt: Date,
+    // waiter who took the order (useful for restaurants)
+    takenBy: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+    },
+    // optional table number for dine-in
+    tableNumber: {
+        type: String,
+    },
+    // Order type: in-house, delivery-partner, or store-delivery
+    orderType: {
+        type: String,
+        enum: ["in-house", "delivery-partner", "store-delivery"],
+        default: "in-house",
+    },
+    // Delivery partner reference (if orderType is "delivery-partner")
+    deliveryPartner: {
+        type: mongoose.Schema.ObjectId,
+        ref: "DeliveryPartner",
+    },
+    // Tracking ID from delivery partner
+    deliveryPartnerOrderId: {
+        type: String,
     },
     deliveredAt: Date,
     shippedAt: Date,

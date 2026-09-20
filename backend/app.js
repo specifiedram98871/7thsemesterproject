@@ -7,14 +7,10 @@ const errorMiddleware = require("./middlewares/error");
 const cors = require("cors");
 
 const app = express();
-require('dotenv').config();
-// config
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config({ path: "backend/config/config.env" });
-}
 app.use(
   cors({
-    origin: "https://7thsemesterproject.vercel.app",
+    origin: "https://7thsemesterproject.vercel.app",         
+    // origin: "http://localhost:5173",         
     credentials: true,
   })
 );
@@ -27,14 +23,24 @@ const user = require("./routes/userRoute");
 const product = require("./routes/productRoute");
 const order = require("./routes/orderRoute");
 const payment = require("./routes/paymentRoute");
+const deliveryPartner = require("./routes/deliveryPartnerRoute");
 //recommend
 const recommendation = require("./routes/recommendRouter");
 app.use("/api/v1", recommendation);
+
+const rag = require("./routes/ragRoute");
+app.use("/api/v1", rag);
 
 app.use("/api/v1", user);
 app.use("/api/v1", product);
 app.use("/api/v1", order);
 app.use("/api/v1", payment);
+app.use("/api/v1", deliveryPartner);
+
+// Health check endpoint
+app.get("/api/v1/health", (req, res) => {
+  res.status(200).json({ success: true, message: "Backend is running" });
+});
 
 // deployment
 __dirname = path.resolve();

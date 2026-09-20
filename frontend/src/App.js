@@ -27,6 +27,9 @@ import OrderDetails from "./components/Order/OrderDetails";
 import Dashboard from "./components/Admin/Dashboard";
 import MainData from "./components/Admin/MainData";
 import OrderTable from "./components/Admin/OrderTable";
+import WaiterOrdersTable from "./components/Admin/WaiterOrdersTable";
+import KitchenBoard from "./components/Admin/KitchenBoard";
+import DeliveryPartners from "./components/Admin/DeliveryPartners";
 import UpdateOrder from "./components/Admin/UpdateOrder";
 import ProductTable from "./components/Admin/ProductTable";
 import NewProduct from "./components/Admin/NewProduct";
@@ -34,6 +37,7 @@ import UpdateProduct from "./components/Admin/UpdateProduct";
 import UserTable from "./components/Admin/UserTable";
 import UpdateUser from "./components/Admin/UpdateUser";
 import ReviewsTable from "./components/Admin/ReviewsTable";
+import WaiterDashboard from "./components/User/Waiter/WaiterDashboard";
 import Wishlist from "./components/Wishlist/Wishlist";
 import NotFound from "./components/NotFound";
 import AboutUs from "./components/pages/Aboutus";
@@ -60,7 +64,7 @@ function App() {
   useEffect(() => {
     WebFont.load({
       google: {
-        families: ["Roboto:300,400,500,600,700"],
+        families: ["Poppins:300,400,500,600,700", "Playfair Display:400,600,700"],
       },
     });
   });
@@ -224,9 +228,27 @@ function App() {
           path="/admin/dashboard"
           element={
             <ProtectedRoute isAdmin={true}>
-              <Dashboard activeTab={0}>
+              <Dashboard activeTab={1}>
                 <MainData />
               </Dashboard>
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/admin/kitchen"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <KitchenBoard />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/waiter/dashboard"
+          element={
+            <ProtectedRoute isWaiter={true}>
+              <WaiterDashboard />
             </ProtectedRoute>
           }
         ></Route>
@@ -235,8 +257,30 @@ function App() {
           path="/admin/orders"
           element={
             <ProtectedRoute isAdmin={true}>
-              <Dashboard activeTab={1}>
+              <Dashboard activeTab={2}>
                 <OrderTable />
+              </Dashboard>
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/admin/waiter-orders"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <Dashboard activeTab={3}>
+                <WaiterOrdersTable />
+              </Dashboard>
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/admin/delivery-partners"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <Dashboard activeTab={8}>
+                <DeliveryPartners />
               </Dashboard>
             </ProtectedRoute>
           }
@@ -246,7 +290,7 @@ function App() {
           path="/admin/order/:id"
           element={
             <ProtectedRoute isAdmin={true}>
-              <Dashboard activeTab={1}>
+              <Dashboard activeTab={2}>
                 <UpdateOrder />
               </Dashboard>
             </ProtectedRoute>
@@ -257,7 +301,7 @@ function App() {
           path="/admin/products"
           element={
             <ProtectedRoute isAdmin={true}>
-              <Dashboard activeTab={2}>
+              <Dashboard activeTab={4}>
                 <ProductTable />
               </Dashboard>
             </ProtectedRoute>
@@ -268,7 +312,7 @@ function App() {
           path="/admin/new_product"
           element={
             <ProtectedRoute isAdmin={true}>
-              <Dashboard activeTab={3}>
+              <Dashboard activeTab={5}>
                 <NewProduct />
               </Dashboard>
             </ProtectedRoute>
@@ -279,7 +323,7 @@ function App() {
           path="/admin/product/:id"
           element={
             <ProtectedRoute isAdmin={true}>
-              <Dashboard activeTab={2}>
+              <Dashboard activeTab={4}>
                 <UpdateProduct />
               </Dashboard>
             </ProtectedRoute>
@@ -290,7 +334,7 @@ function App() {
           path="/admin/users"
           element={
             <ProtectedRoute isAdmin={true}>
-              <Dashboard activeTab={4}>
+              <Dashboard activeTab={6}>
                 <UserTable />
               </Dashboard>
             </ProtectedRoute>
@@ -301,7 +345,7 @@ function App() {
           path="/admin/user/:id"
           element={
             <ProtectedRoute isAdmin={true}>
-              <Dashboard activeTab={4}>
+              <Dashboard activeTab={6}>
                 <UpdateUser />
               </Dashboard>
             </ProtectedRoute>
@@ -312,7 +356,7 @@ function App() {
           path="/admin/reviews"
           element={
             <ProtectedRoute isAdmin={true}>
-              <Dashboard activeTab={5}>
+              <Dashboard activeTab={7}>
                 <ReviewsTable />
               </Dashboard>
             </ProtectedRoute>

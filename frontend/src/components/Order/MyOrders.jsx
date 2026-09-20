@@ -11,8 +11,9 @@ import RadioGroup from '@mui/material/RadioGroup';
 import SearchIcon from '@mui/icons-material/Search';
 import MinCategory from '../Layouts/MinCategory';
 import MetaData from '../Layouts/MetaData';
+import { getCanonicalOrderStatus } from '../../utils/functions';
 
-const orderStatus = ["Processing", "Shipped", "Delivered"];
+const orderStatus = ["Processing", "Completed", "Delivered"];
 const dt = new Date();
 const ordertime = [dt.getMonth(), dt.getFullYear() - 1, dt.getFullYear() - 2];
 
@@ -56,12 +57,14 @@ const MyOrders = () => {
 
         if (status && orderTime) {
             if (+orderTime === dt.getMonth()) {
-                const filteredArr = orders.filter((order) => order.orderStatus === status &&
+                const filteredArr = orders.filter((order) =>
+                    getCanonicalOrderStatus(order.orderStatus, order.orderType) === status &&
                     new Date(order.createdAt).getMonth() === +orderTime
                 );
                 setFilteredOrders(filteredArr);
             } else {
-                const filteredArr = orders.filter((order) => order.orderStatus === status &&
+                const filteredArr = orders.filter((order) =>
+                    getCanonicalOrderStatus(order.orderStatus, order.orderType) === status &&
                     new Date(order.createdAt).getFullYear() === +orderTime
                 );
                 setFilteredOrders(filteredArr);
@@ -79,7 +82,7 @@ const MyOrders = () => {
                 setFilteredOrders(filteredArr);
             }
         } else {
-            const filteredArr = orders.filter((order) => order.orderStatus === status);
+            const filteredArr = orders.filter((order) => getCanonicalOrderStatus(order.orderStatus, order.orderType) === status);
             setFilteredOrders(filteredArr);
         }
         // eslint-disable-next-line
@@ -210,7 +213,7 @@ const MyOrders = () => {
 
                                     return (
                                         orderItems.map((item, index) => (
-                                            <OrderItem {...item} key={index} orderId={_id} orderStatus={orderStatus} createdAt={createdAt} deliveredAt={deliveredAt} />
+                                            <OrderItem {...item} key={index} orderId={_id} orderStatus={orderStatus} orderType={order.orderType} createdAt={createdAt} deliveredAt={deliveredAt} />
                                         ))
                                     )
                                 }).reverse()}

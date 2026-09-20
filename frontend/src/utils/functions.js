@@ -12,6 +12,22 @@ export const formatDate = (dt) => {
     return new Date(dt).toUTCString().substring(0,16);
 }
 
+export const getCanonicalOrderStatus = (orderStatus, orderType = "") => {
+    if (orderStatus === "Shipped") {
+        return orderType === "delivery-partner" ? "Delivered" : "Completed";
+    }
+
+    return orderStatus || "";
+}
+
+export const getFinalOrderStatus = (orderType = "") => {
+    return orderType === "delivery-partner" ? "Delivered" : "Completed";
+}
+
+export const getOrderStatusOptions = (orderType = "") => {
+    return [getFinalOrderStatus(orderType)];
+}
+
 export const getRandomProducts = (prodsArray, n) => {
     return prodsArray.sort(() => 0.5 - Math.random()).slice(0, n)
 }

@@ -7,7 +7,7 @@ import Slider from '@mui/material/Slider';
 import { useSnackbar } from 'notistack';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { clearErrors, getProducts } from '../../actions/productAction';
 import Loader from '../Layouts/Loader';
 import MinCategory from '../Layouts/MinCategory';
@@ -23,9 +23,10 @@ const Products = () => {
     const { enqueueSnackbar } = useSnackbar();
     const params = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
 
     const [price, setPrice] = useState([0, 20000]);
-    const [category, setCategory] = useState(location.search ? location.search.split("=")[1] : "");
+    const [category, setCategory] = useState(() => new URLSearchParams(location.search).get('category') || '');
     const [ratings, setRatings] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [categoryToggle, setCategoryToggle] = useState(true);
@@ -42,37 +43,88 @@ const Products = () => {
         setPrice([0, 20000]);
         setCategory("");
         setRatings(0);
+        navigate('/products');
     }
 
+    // useEffect(() => {
+    //     const queryParams = new URLSearchParams(location.search);
+    //     const newCategory = queryParams.get('category') || "";
+    //     if (newCategory !== category) {
+    //         setCategory(newCategory);
+    //     }
+    //     dispatch(getProducts(keyword, newCategory, price, ratings, currentPage));
+    // }, [location.search, category, dispatch, keyword, price, ratings, currentPage]);
+
+// ensure category in URL and state are in sync
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
-        const newCategory = queryParams.get('category') || "";
-        if (newCategory !== category) {
-            setCategory(newCategory);
-        }
-        dispatch(getProducts(keyword, newCategory, price, ratings, currentPage));
-    }, [location.search, category, dispatch, keyword, price, ratings, currentPage]);
+        const newCategory = queryParams.get('category') || '';
 
+        setCategory(prev =>
+            prev !== newCategory ? newCategory : prev
+        );
+    }, [location.search]);
+// fetch products whenever filters or pagination change    
     useEffect(() => {
-        if (error) {
-            enqueueSnackbar(error, { variant: "error" });
-            dispatch(clearErrors());
-        }
-    }, [error, dispatch, enqueueSnackbar]);
+        dispatch(
+            getProducts(
+                keyword,
+                category,
+                price,
+                ratings,
+                currentPage
+            )
+        );
+    }, [
+        dispatch,
+        keyword,
+        category,
+        price,
+        ratings,
+        currentPage
+    ]);
 
+    // useEffect(() => {
+    //     if (error) {
+    //         enqueueSnackbar(error, { variant: "error" });
+    //         dispatch(clearErrors());
+    //     }
+    // }, [error, dispatch, enqueueSnackbar]);
+
+    // const handleCategoryChange = (e) => {
+    //     const selectedCategory = e.target.value;
+    //     setCategory(selectedCategory);
+    //     dispatch(getProducts(keyword, selectedCategory, price, ratings, currentPage));
+
+    //     // Store category in localStorage
+    //     const storedCategories = JSON.parse(localStorage.getItem('categories')) || [];
+    //     if (!storedCategories.includes(selectedCategory)) {
+    //         if (storedCategories.length >= 3) {
+    //             storedCategories.shift(); // Remove the first (oldest) category
+    //         }
+    //         storedCategories.push(selectedCategory);
+    //         localStorage.setItem('categories', JSON.stringify(storedCategories));
+    //     }
+    // };
     const handleCategoryChange = (e) => {
         const selectedCategory = e.target.value;
         setCategory(selectedCategory);
-        dispatch(getProducts(keyword, selectedCategory, price, ratings, currentPage));
-        
-        // Store category in localStorage
-        const storedCategories = JSON.parse(localStorage.getItem('categories')) || [];
+        navigate(`/products?category=${encodeURIComponent(selectedCategory)}`);
+
+        const storedCategories =
+            JSON.parse(localStorage.getItem('categories')) || [];
+
         if (!storedCategories.includes(selectedCategory)) {
             if (storedCategories.length >= 3) {
-                storedCategories.shift(); // Remove the first (oldest) category
+                storedCategories.shift();
             }
+
             storedCategories.push(selectedCategory);
-            localStorage.setItem('categories', JSON.stringify(storedCategories));
+
+            localStorage.setItem(
+                'categories',
+                JSON.stringify(storedCategories)
+            );
         }
     };
 
@@ -84,7 +136,7 @@ const Products = () => {
             <main className="w-full mt-14 sm:mt-0">
 
                 {/* <!-- row --> */}
-                <div className="flex gap-3 mt-2 sm:mt-2 sm:mx-3 m-auto mb-7">
+                <div className="m-auto mb-7 mt-3 flex gap-3 sm:mx-3 sm:mt-3">
 
                     {/* <!-- sidebar column  --> */}
                     <div className="hidden sm:flex flex-col w-1/5 px-1">
@@ -133,26 +185,26 @@ const Products = () => {
                                     </div>
 
                                     {categoryToggle && (
-    <div className="flex flex-col pb-1">
-        <FormControl>
-            <RadioGroup
-                aria-labelledby="category-radio-buttons-group"
-                onChange={handleCategoryChange}
-                name="category-radio-buttons"
-                value={category}
-            >
-                {categories.map((el, i) => (
-                    <FormControlLabel
-                        key={i} // Moved key here for uniqueness
-                        value={el}
-                        control={<Radio size="small" />}
-                        label={<span className="text-sm">{el}</span>}
-                    />
-                ))}
-            </RadioGroup>
-        </FormControl>
-    </div>
-)}
+                                        <div className="flex flex-col pb-1">
+                                            <FormControl>
+                                                <RadioGroup
+                                                    aria-labelledby="category-radio-buttons-group"
+                                                    onChange={handleCategoryChange}
+                                                    name="category-radio-buttons"
+                                                    value={category}
+                                                >
+                                                    {categories.map((el, i) => (
+                                                        <FormControlLabel
+                                                            key={i} // Moved key here for uniqueness
+                                                            value={el}
+                                                            control={<Radio size="small" />}
+                                                            label={<span className="text-sm">{el}</span>}
+                                                        />
+                                                    ))}
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </div>
+                                    )}
 
                                 </div>
                                 {/* category filter */}
@@ -210,33 +262,33 @@ const Products = () => {
                         {loading ? <Loader /> : (
                             <div className="flex flex-col gap-2 pb-4 justify-center items-center w-full overflow-hidden bg-white">
 
-<div className="grid grid-cols-1 sm:grid-cols-4 w-full place-content-start overflow-hidden pb-4 border-b">
-  {products?.map((product) => {
-    const path = window.location.pathname;
+                                <div className="grid w-full grid-cols-2 place-content-start gap-2 overflow-hidden border-b pb-4 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+                                    {products?.map((product) => {
+                                        const path = window.location.pathname;
 
-    if (path !== "/products" ) {
-        // Retrieve the array from localStorage or set it to a default array with "Bakery"
-        const storedSearchItems = JSON.parse(localStorage.getItem("searches")) || []
-        
-        // Create a new array, including the current product category
-        const searchItemsArray = product.category;  
- 
-        // Check if searchItemsArray already contains the new item
-        if (!storedSearchItems.includes(searchItemsArray) ) { 
-            if(storedSearchItems.length>2)       {
-                storedSearchItems.shift();
-            }
-            // Push unique items and update localStorage
-            storedSearchItems.push(product.category);
-            localStorage.setItem("searches", JSON.stringify(storedSearchItems));
-            
-        }
-        }
-    
-      
-      return <Product {...product} key={product._id} />;
-  })}
-</div>
+                                        if (path !== "/products") {
+                                            // Retrieve the array from localStorage or set it to a default array with "Bakery"
+                                            const storedSearchItems = JSON.parse(localStorage.getItem("searches")) || []
+
+                                            // Create a new array, including the current product category
+                                            const searchItemsArray = product.category;
+
+                                            // Check if searchItemsArray already contains the new item
+                                            if (!storedSearchItems.includes(searchItemsArray)) {
+                                                if (storedSearchItems.length > 2) {
+                                                    storedSearchItems.shift();
+                                                }
+                                                // Push unique items and update localStorage
+                                                storedSearchItems.push(product.category);
+                                                localStorage.setItem("searches", JSON.stringify(storedSearchItems));
+
+                                            }
+                                        }
+
+
+                                        return <Product {...product} key={product._id} />;
+                                    })}
+                                </div>
 
                                 {filteredProductsCount > resultPerPage && (
                                     <Pagination

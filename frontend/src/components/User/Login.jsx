@@ -18,10 +18,27 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [fieldErrors, setFieldErrors] = useState({});
+
+    const validateLogin = () => {
+        const errors = {};
+        const normalizedEmail = email.trim();
+
+        if (!normalizedEmail) {
+            errors.email = "Email is required";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+            errors.email = "Enter a valid email address";
+        }
+
+        if (!password) errors.password = "Password is required";
+
+        setFieldErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
 
     const handleLogin = (e) => {
         e.preventDefault();
-        dispatch(loginUser(email, password));
+        if (validateLogin()) dispatch(loginUser(email.trim(), password));
     }
 
     const redirect = location.search ? location.search.split("=")[1] : "account";
@@ -59,7 +76,7 @@ const Login = () => {
                         <div className="text-center py-10 px-4 sm:px-14">
 
                             {/* <!-- input container --> */}
-                            <form onSubmit={handleLogin}>
+                            <form onSubmit={handleLogin} noValidate>
                                 <div className="flex flex-col w-full gap-4">
 
                                     <TextField
@@ -68,8 +85,12 @@ const Login = () => {
                                         label="Email"
                                         type="email"
                                         value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
+                                        onChange={(e) => {
+                                            setEmail(e.target.value);
+                                            setFieldErrors((errors) => ({ ...errors, email: "" }));
+                                        }}
+                                        error={Boolean(fieldErrors.email)}
+                                        helperText={fieldErrors.email}
                                     />
                                     <TextField
                                         fullWidth
@@ -77,8 +98,12 @@ const Login = () => {
                                         label="Password"
                                         type="password"
                                         value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                            setFieldErrors((errors) => ({ ...errors, password: "" }));
+                                        }}
+                                        error={Boolean(fieldErrors.password)}
+                                        helperText={fieldErrors.password}
                                     />
                                     {/* <span className="text-xxs text-red-500 font-medium text-left mt-0.5">Please enter valid Email ID/Mobile number</span> */}
 

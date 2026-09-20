@@ -6,6 +6,27 @@ import { settings } from '../DealSlider/DealSlider';
 import Product from './Product';
 import Recommendation from './Recommendation';
 
+const suggestedSettings = {
+    ...settings,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    swipe: true,
+    responsive: [
+        {
+            breakpoint: 1024,
+            settings: { slidesToShow: 3, slidesToScroll: 3 },
+        },
+        {
+            breakpoint: 600,
+            settings: { slidesToShow: 2, slidesToScroll: 2 },
+        },
+        {
+            breakpoint: 480,
+            settings: { slidesToShow: 1, slidesToScroll: 1 },
+        },
+    ],
+};
+
 const ProductSlider = ({ title, tagline }) => {
     const { loading, products } = useSelector((state) => state.products);
 
@@ -19,18 +40,17 @@ const ProductSlider = ({ title, tagline }) => {
     const filteredProducts = products?.filter(product => combinedFilters.includes(product.category));
 
     return (
-        <section className="bg-white w-full shadow overflow-hidden">
-            {/* <!-- header --> */}
-            <div className="flex px-6 py-4 justify-between items-center">
-                <div className="title flex flex-col gap-0.5">
-                    <h1 className="text-xl font-medium">{title}</h1>
-                    <p className="text-sm text-gray-400">{tagline}</p>
+        <section className="warm-card overflow-hidden">
+            <div className="flex items-center justify-between gap-4 border-b border-[#f0dfcf] px-5 py-4 sm:px-6">
+                <div className="title flex flex-col gap-1">
+                    <p className="text-xs uppercase tracking-[0.28em] text-[#c2410c]">Personalized picks</p>
+                    <h1 className="text-2xl font-semibold text-[#22170f]">{title}</h1>
+                    <p className="text-sm text-[#8b5a2b]">{tagline}</p>
                 </div>
-                <Link to="/products" className="bg-primary-green text-xs font-medium text-white px-5 py-2.5 rounded-sm shadow-lg uppercase">view all</Link>
+                <Link to="/products" className="rounded-full border border-[#edd9c7] bg-[#fff5eb] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#8b5a2b] shadow-sm transition hover:bg-[#f7e8d8]">View all</Link>
             </div>
-            <hr />
             {loading ? null : (
-                <Slider {...settings} className="flex items-center justify-between p-1">
+                <Slider {...suggestedSettings} className="px-1 py-3">
                     {filteredProducts && getRandomProducts(filteredProducts, 12).map((product) => (
                         <Product {...product} key={product._id} />
                     ))}
