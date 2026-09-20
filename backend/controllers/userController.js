@@ -82,7 +82,6 @@ exports.getUserDetails = asyncErrorHandler(async (req, res, next) => {
 exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
     
     const user = await User.findOne({email: req.body.email});
-
     if(!user) {
         return next(new ErrorHandler("User Not Found", 404));
     }
@@ -94,7 +93,6 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
     // const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`;
     // const resetPasswordUrl = `http://${req.get("host")}/password/reset/${resetToken}`;
     const resetPasswordUrl = `${process.env.WEBSITE_URL}/password/reset/${resetToken}`;
-
     // const message = `Your password reset token is : \n\n ${resetPasswordUrl}`;
 
     try {

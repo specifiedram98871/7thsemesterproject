@@ -8,7 +8,7 @@ const Dashboard = ({ activeTab, children }) => {
 
     return (
         <>
-            <main className="min-h-screen mt-14 sm:min-w-full">
+            <main className="min-h-screen mt-16 sm:mt-20 sm:min-w-full">
                 <Sidebar
                     activeTab={activeTab}
                     isOpen={toggleSidebar}
@@ -25,7 +25,7 @@ const Dashboard = ({ activeTab, children }) => {
                 )}
 
                 <div className="min-h-screen w-full md:pl-72">
-                    <div className="flex flex-col gap-6 sm:m-8 p-2 pb-6 overflow-hidden">
+                    <div className="flex flex-col gap-6 px-2 pb-6 pt-20 sm:px-8 sm:pt-24 overflow-hidden">
                         {!toggleSidebar && (
                             <button
                                 type="button"

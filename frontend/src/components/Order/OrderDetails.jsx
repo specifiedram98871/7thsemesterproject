@@ -75,12 +75,10 @@ const OrderDetails = () => {
                                             <div className="flex flex-col w-full sm:w-1/2">
                                                 <h3 className="font-medium sm:text-center">Order Status</h3>
                                                 <TrackStepper
+                                                    orderStatus={order.orderStatus}
+                                                    orderType={order.orderType}
                                                     orderOn={order.createdAt}
-                                                    shippedAt={order.shippedAt}
                                                     deliveredAt={order.deliveredAt}
-                                                    activeStep={
-                                                        order.orderStatus === "Delivered" ? 2 : order.orderStatus === "Shipped" ? 1 : 0
-                                                    }
                                                 />
                                             </div>
 

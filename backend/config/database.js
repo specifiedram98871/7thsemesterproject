@@ -1,16 +1,19 @@
 const mongoose = require("mongoose");
 
-//cloud
 const MONGO_URI = process.env.MONGO_URI;
-
-//local env
-// const MONGO_URI = "mongodb://localhost:27017/ecommerce";
+console.log("Connecting to MongoDB:", MONGO_URI);
 
 const connectDatabase = () => {
+  mongoose.set("strictQuery", false);
+
   mongoose
     .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-      console.log("Mongoose Connected");
+      console.log("✓ MongoDB Connected Successfully");
+    })
+    .catch((err) => {
+      console.error("✗ MongoDB Connection Failed:", err.message);
+      console.error("Attempting to continue server startup anyway...");
     });
 };
 

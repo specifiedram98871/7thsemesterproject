@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../CSSForFooter/faq.css';
 
 const FAQ = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [questionInput, setQuestionInput] = useState('');
+  const [answer, setAnswer] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const faqs = [
     {
@@ -58,6 +63,48 @@ const FAQ = () => {
   return (
     <div className="faq-container">
       <h1>Frequently Asked Questions</h1>
+      <div className="faq-ask">
+        <h2>Ask a question</h2>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+          <input
+            type="text"
+            value={questionInput}
+            onChange={(e) => setQuestionInput(e.target.value)}
+            placeholder="Ask about orders, shipping, returns..."
+            style={{ flex: 1, padding: 8 }}
+          />
+          <button
+            onClick={async () => {
+              setError(null);
+              setAnswer(null);
+              if (!questionInput.trim()) return setError('Please enter a question');
+              try {
+                setLoading(true);
+                const { data } = await axios.post(
+                  `${process.env.REACT_APP_BACK_URL}/api/v1/rag`,
+                  { question: questionInput },
+                  { withCredentials: true }
+                );
+                setAnswer(data.answer || 'No answer returned');
+              } catch (err) {
+                setError(err?.response?.data?.message || err.message || 'Request failed');
+              } finally {
+                setLoading(false);
+              }
+            }}
+          >
+            Ask
+          </button>
+        </div>
+        {loading && <div>Thinking...</div>}
+        {error && <div style={{ color: 'red' }}>{error}</div>}
+        {answer && (
+          <div className="faq-answer-box">
+            <h3>Answer</h3>
+            <pre style={{ whiteSpace: 'pre-wrap' }}>{answer}</pre>
+          </div>
+        )}
+      </div>
       <div className="faq-list">
         {faqs.map((faq, index) => (
           <div key={index} className="faq-item">

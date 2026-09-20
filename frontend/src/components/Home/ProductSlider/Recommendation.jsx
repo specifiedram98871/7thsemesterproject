@@ -44,8 +44,30 @@ const Recommendation = ({ products }) => {
   }
 
   if (!recommended || recommended.length === 0) {
-    // console.log("No recommendations available", user);
-    return <div>No recommendations available</div>;
+    return (
+      <section className="border-t border-[#f0dfcf] bg-[#fffaf5] px-5 py-8 sm:px-8 sm:py-10">
+        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#ffe3cb] text-2xl text-[#c2410c] shadow-inner">
+            <span aria-hidden="true">&#9733;</span>
+          </div>
+          <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#c2410c]">
+            Personalised for you
+          </p>
+          <h2 className="mt-2 text-xl font-semibold text-[#22170f] sm:text-2xl">
+            Your recommendations are taking shape
+          </h2>
+          <p className="mt-2 max-w-lg text-sm leading-6 text-[#8b5a2b]">
+            Explore a few products and leave a review to help us discover picks that match your taste.
+          </p>
+          <Link
+            to="/products"
+            className="mt-5 rounded-full bg-[#c2410c] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_10px_22px_rgba(194,65,12,0.2)] transition hover:-translate-y-0.5 hover:bg-[#a63d13]"
+          >
+            Browse products
+          </Link>
+        </div>
+      </section>
+    );
   }
   const rProduct = products.filter((product) => {
     return recommended.includes(product._id);

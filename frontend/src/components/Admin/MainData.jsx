@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllOrders } from "../../actions/orderAction";
 import { getAllUsers } from "../../actions/userAction";
 import { categories } from "../../utils/constants";
+import { getCanonicalOrderStatus } from "../../utils/functions";
 import MetaData from "../Layouts/MetaData";
 
 ChartJS.register(
@@ -120,7 +121,7 @@ const MainData = () => {
     ],
   };
 
-  const statuses = ["Processing", "Shipped", "Delivered"];
+  const statuses = ["Processing", "Completed", "Delivered"];
 
   const pieState = {
     labels: statuses,
@@ -130,7 +131,7 @@ const MainData = () => {
         hoverBackgroundColor: ["#a855f7", "#fde047", "#86efac"],
         data: statuses.map(
           (status) =>
-            orders?.filter((item) => item.orderStatus === status).length
+            orders?.filter((item) => getCanonicalOrderStatus(item.orderStatus, item.orderType) === status).length
         ),
       },
     ],
