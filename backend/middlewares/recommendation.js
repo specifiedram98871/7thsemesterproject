@@ -4,6 +4,8 @@ const math = require("mathjs");
 // Calculate Cosine Similarity between two users
 function cosineSimilarity(userA, userB) {
   const allItems = new Set([...Object.keys(userA), ...Object.keys(userB)]);
+  if (allItems.size === 0) return 0;
+
   const vectorA = Array.from(allItems).map((item) => userA[item] || 0);
   const vectorB = Array.from(allItems).map((item) => userB[item] || 0);
 
@@ -36,7 +38,6 @@ function getUserSimilarities(targetUserId, userItemData) {
 
 // Get recommendations for a user based on similar users
 function getRecommendations(targetUserId, userItemData) {
-  const similarUsers = getUserSimilarities(targetUserId, userItemData);
   const targetUser = userItemData.find(
     (user) => user.userId.toString() === targetUserId
   );
@@ -45,8 +46,10 @@ function getRecommendations(targetUserId, userItemData) {
   // console.log("Similar Users:", similarUsers);
 
   if (!targetUser || Object.keys(targetUser.interactions).length === 0) {
-    return { message: "No recommendations found due to lack of interactions" };
+    return { message: "Provide interaction to get recommendations" };
   }
+
+  const similarUsers = getUserSimilarities(targetUserId, userItemData);
 
   if (similarUsers.length === 0) return { message: "No recommendations found" };
 
@@ -137,7 +140,10 @@ const getRecommendation = (req, res) => {
   const recommendations = getRecommendations(targetUserId, req.userItemData);
 
   if (recommendations.message) {
-    return res.status(404).json({ message: recommendations.message });
+    return res.status(200).json({
+      success: true,
+      message: recommendations.message,
+    });
   }
 
   res.json({ userId: targetUserId, recommendations });
